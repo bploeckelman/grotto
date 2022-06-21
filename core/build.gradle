@@ -18,5 +18,7 @@ dependencies {
 	api "org.projectlombok:lombok:$lombokVersion"
 	api "space.earlygrey:shapedrawer:$shapeDrawerVersion"
 	api "space.earlygrey:simple-graphs:$simpleGraphsVersion"
+	api "org.mini2Dx:universal-tween-engine:$tweenEngineVersion"
+	api "org.mini2Dx:universal-tween-engine:$tweenEngineVersion:sources"
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }

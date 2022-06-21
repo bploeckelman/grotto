@@ -43,10 +43,9 @@ public class Assets implements Disposable {
 
         // pack texture atlas from sprites folder
         {
-            var path = "../sprites";
             var packJson = Gdx.files.local("../sprites/pack.json").readString();
             var settings = (new Json()).fromJson(TexturePacker.Settings.class, packJson);
-            TexturePacker.process(settings, "../sprites", "sprites", "sprites");
+            TexturePacker.processIfModified(settings, "../sprites", "sprites", "sprites");
         }
 
         // create a single pixel texture and associated region
