@@ -52,11 +52,6 @@ public abstract class BaseScreen extends ManagedScreen implements Disposable {
 
     }
 
-    @Override
-    public void render(float delta) {
-        update(delta);
-    }
-
     public void update(float delta) {
         windowCamera.update();
         worldCamera.update();

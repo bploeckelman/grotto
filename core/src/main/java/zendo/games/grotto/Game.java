@@ -14,8 +14,12 @@ import com.kotcrab.vis.ui.VisUI;
 import de.eskalon.commons.core.ManagedGame;
 import de.eskalon.commons.screen.transition.ScreenTransition;
 import de.eskalon.commons.screen.transition.impl.BlendingTransition;
+import de.eskalon.commons.screen.transition.impl.PushTransition;
+import de.eskalon.commons.screen.transition.impl.SlidingDirection;
 import de.eskalon.commons.utils.BasicInputMultiplexer;
+import zendo.games.grotto.scene.systems.RenderSystem;
 import zendo.games.grotto.screens.BaseScreen;
+import zendo.games.grotto.screens.MapScreen;
 import zendo.games.grotto.screens.TitleScreen;
 import zendo.games.grotto.utils.Time;
 import zendo.games.grotto.utils.accessors.*;
@@ -40,6 +44,7 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 		assets = new Assets();
 
 		engine = new Engine();
+		engine.addSystem(new RenderSystem());
 
 		tween = new TweenManager();
 		Tween.setWaypointsLimit(4);
@@ -53,7 +58,9 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 		var inputMux = new BasicInputMultiplexer();
 		screenManager.initialize(inputMux, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
 		screenManager.addScreen("title", new TitleScreen());
+		screenManager.addScreen("map", new MapScreen());
 		screenManager.addScreenTransition("blend", new BlendingTransition(assets.batch, 1f));
+		screenManager.addScreenTransition("push", new PushTransition(assets.batch, SlidingDirection.DOWN, 0.5f));
 
 		screenManager.pushScreen("title", "blend");
 	}

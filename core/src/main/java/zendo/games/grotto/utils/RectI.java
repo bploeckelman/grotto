@@ -14,11 +14,11 @@ public class RectI implements Pool.Poolable {
 
     public RectI() {}
 
-    private RectI(RectI other) {
+    public RectI(RectI other) {
         set(other);
     }
 
-    private RectI(int x, int y, int w, int h) {
+    public RectI(int x, int y, int w, int h) {
         set(x, y, w, h);
     }
 

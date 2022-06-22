@@ -6,19 +6,17 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class Time {
 
-    public interface Callback {
-        void call();
-    }
-
     private static class CallbackInfo {
         private final Callback callback;
+        private final Object[] params;
         private float timer;
 
         public float timeout = 0;
         public float interval = 0;
 
-        CallbackInfo(Callback callback) {
+        CallbackInfo(Callback callback, Object... params) {
             this.callback = callback;
+            this.params = params;
             this.timer = 0;
         }
 
@@ -39,14 +37,14 @@ public class Time {
                 if (timer >= interval) {
                     timer -= interval;
                     if (callback != null) {
-                        callback.call();
+                        callback.run(params);
                         called = true;
                     }
                 }
             } else {
                 if (timer >= timeout) {
                     if (callback != null) {
-                        callback.call();
+                        callback.run(params);
                         called = true;
                     }
                 }
@@ -82,13 +80,13 @@ public class Time {
         }
     }
 
-    public static void set_timeout(float seconds, Callback callback) {
+    public static void do_after_delay(float seconds, Callback callback) {
         var info = new CallbackInfo(callback);
         info.timeout = seconds;
         callbacks.add(info);
     }
 
-    public static void set_interval(float seconds, Callback callback) {
+    public static void do_at_interval(float seconds, Callback callback) {
         var info = new CallbackInfo(callback);
         info.interval = seconds;
         callbacks.add(info);
