@@ -21,4 +21,7 @@ dependencies {
 	api "org.mini2Dx:universal-tween-engine:$tweenEngineVersion"
 	api "org.mini2Dx:universal-tween-engine:$tweenEngineVersion:sources"
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+	// for aseprite parsing / packing from core code
+	api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
