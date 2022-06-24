@@ -75,6 +75,9 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 
 		Time.update();
 
+		// TODO - need a way to separate 'pausable update' from 'always update' on entity components
+		engine.update(Time.delta);
+
 		// handle a pause
 		{
 			if (Time.pause_timer > 0) {

@@ -40,7 +40,6 @@ public class MapScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         scene.update(delta);
-        animationSystem.update(delta);
         super.update(delta);
     }
 
