@@ -17,6 +17,7 @@ import de.eskalon.commons.screen.transition.impl.BlendingTransition;
 import de.eskalon.commons.screen.transition.impl.PushTransition;
 import de.eskalon.commons.screen.transition.impl.SlidingDirection;
 import de.eskalon.commons.utils.BasicInputMultiplexer;
+import zendo.games.grotto.scene.systems.AnimationSystem;
 import zendo.games.grotto.scene.systems.RenderSystem;
 import zendo.games.grotto.screens.BaseScreen;
 import zendo.games.grotto.screens.MapScreen;
@@ -45,6 +46,7 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 
 		engine = new Engine();
 		engine.addSystem(new RenderSystem());
+		engine.addSystem(new AnimationSystem());
 
 		tween = new TweenManager();
 		Tween.setWaypointsLimit(4);

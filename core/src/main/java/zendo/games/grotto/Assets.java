@@ -14,8 +14,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Json;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+import zendo.games.grotto.sprites.Content;
 
-public class Assets implements Disposable {
+public class Assets extends Content implements Disposable {
 
     public enum Load { ASYNC, SYNC }
 
@@ -112,6 +113,13 @@ public class Assets implements Disposable {
         if (initialized) return 1;
 
         atlas = mgr.get("sprites/sprites.atlas");
+
+        // load aseprite sprites from an atlas and json definitions
+        var aseAtlas = new TextureAtlas("sprites/aseprites.atlas");
+        var spritesDir = Gdx.files.internal("sprites");
+        for (var fileHandle : spritesDir.list(".json")) {
+            sprites.add(Content.loadSprite(fileHandle.path(), aseAtlas));
+        }
 
         initialized = true;
         return 1;

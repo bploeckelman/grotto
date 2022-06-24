@@ -3,9 +3,8 @@ package zendo.games.grotto.scene.factories;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
-import zendo.games.grotto.scene.components.NameComponent;
-import zendo.games.grotto.scene.components.RectiComponent;
-import zendo.games.grotto.scene.components.ShapeComponent;
+import zendo.games.grotto.scene.components.*;
+import zendo.games.grotto.utils.Point;
 
 public class EntityFactory {
 
@@ -22,6 +21,25 @@ public class EntityFactory {
             entity.add(name);
             entity.add(bounds);
             entity.add(shape);
+
+            engine.addEntity(entity);
+        }
+        return entity;
+    }
+
+    public static Entity createPlayer(Engine engine, Point playerPosition) {
+        var entity = engine.createEntity();
+        {
+            var name = new NameComponent("player");
+            var position = new PositionComponent(playerPosition);
+            var animator = new AnimatorComponent("hero", "idle");
+
+            // TODO - collider
+            // TODO - mover
+
+            entity.add(name);
+            entity.add(position);
+            entity.add(animator);
 
             engine.addEntity(entity);
         }
