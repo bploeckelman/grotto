@@ -6,10 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import zendo.games.grotto.utils.Calc;
-import zendo.games.grotto.utils.Point;
 
 public class CameraControllerComponent implements Component {
-
 
     public OrthographicCamera camera;
 
@@ -36,7 +34,7 @@ public class CameraControllerComponent implements Component {
     }
 
     public void update(float dt) {
-        var targetPoint = Point.zero();
+        var targetPoint = Vector2.Zero.cpy();
 
         // update and constrain camera bounds if not currently transitioning,
         // otherwise transition tween will automatically update target until complete
@@ -115,13 +113,15 @@ public class CameraControllerComponent implements Component {
 //                    }
 //                } else {
 //                    // keep the camera inside the room's bounds
-//                    var bounds = worldMap.getRoomBounds(room);
-//                    if (bounds != null) {
+//                    var map = Game.instance.engine.getEntitiesFor(Families.maps).first();
+//                    var boundsComponent = map.getComponent(BoundsComponent.class);
+//                    if (boundsComponent != null) {
+//                        var bounds = boundsComponent.rect();
 //                        // clamp the camera to within the current room's bounds
-//                        var left = bounds.x + cameraHorzEdge;
+//                        var left   = bounds.x + cameraHorzEdge;
 //                        var bottom = bounds.y + cameraVertEdge;
-//                        var right = bounds.x + bounds.w - cameraHorzEdge;
-//                        var top = bounds.y + bounds.h - cameraVertEdge;
+//                        var right  = bounds.x + bounds.w - cameraHorzEdge;
+//                        var top    = bounds.y + bounds.h - cameraVertEdge;
 //                        target.x = MathUtils.clamp(target.x, left, right);
 //                        target.y = MathUtils.clamp(target.y, bottom, top);
 //                    }

@@ -12,13 +12,15 @@ public class EntityFactory {
         var entity = engine.createEntity();
         {
             var name = new NameComponent("map");
-            var bounds = new RectiComponent(width, height);
+            var map = new MapComponent();
+            var bounds = new BoundsComponent(width, height);
 
             var recti = bounds.rect();
             var rect = new Rectangle(recti.x, recti.y, recti.w, recti.h);
             var shape = new ShapeComponent(rect);
 
             entity.add(name);
+            entity.add(map);
             entity.add(bounds);
             entity.add(shape);
 
@@ -33,12 +35,13 @@ public class EntityFactory {
             var name = new NameComponent("player");
             var position = new PositionComponent(playerPosition);
             var animator = new AnimatorComponent("hero", "idle");
+            var mover = new MoverComponent(position);
 
             // TODO - collider
-            // TODO - mover
 
             entity.add(name);
             entity.add(position);
+            entity.add(mover);
             entity.add(animator);
 
             engine.addEntity(entity);

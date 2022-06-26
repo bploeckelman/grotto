@@ -2,15 +2,15 @@ package zendo.games.grotto.screens;
 
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import de.eskalon.commons.screen.ManagedScreen;
 import zendo.games.grotto.Assets;
+import zendo.games.grotto.Config;
 import zendo.games.grotto.Game;
+import zendo.games.grotto.scene.Scene;
 
 public abstract class BaseScreen extends ManagedScreen implements Disposable {
 
@@ -23,8 +23,9 @@ public abstract class BaseScreen extends ManagedScreen implements Disposable {
     public final TweenManager tween;
     public final Vector3 pointerPos;
 
-    public Camera worldCamera;
-    public OrthographicCamera windowCamera;
+    public Scene scene;
+    public OrthographicCamera worldCamera;
+    public final OrthographicCamera windowCamera;
 
     public BaseScreen() {
         this.game = Game.instance;
@@ -32,19 +33,15 @@ public abstract class BaseScreen extends ManagedScreen implements Disposable {
         this.engine = game.engine;
         this.batch = game.assets.batch;
         this.tween = game.tween;
+        this.windowCamera = game.windowCamera;
         this.pointerPos = new Vector3();
-        this.windowCamera = new OrthographicCamera();
-        this.windowCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.windowCamera.update();
     }
 
     @Override
     protected void create() {
-        var camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.update();
-
-        this.worldCamera = camera;
+        this.worldCamera = new OrthographicCamera();
+        this.worldCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
+        this.worldCamera.update();
     }
 
     @Override

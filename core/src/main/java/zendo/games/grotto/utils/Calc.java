@@ -69,4 +69,23 @@ public class Calc {
         }
         return r;
     }
+
+    /**
+     * Exponential interpolation (better for multiplicative quantities, like zooming)
+     */
+    public static float eerp(float a, float b, float t) {
+        return (float) (Math.pow(a, 1f - t) * Math.pow(b, t));
+    }
+
+    public static float clampf(float value, float min, float max) {
+        if (max < min) {
+            var temp = min;
+            min = max;
+            max = temp;
+        }
+        return    value < min ? min
+                : value > max ? max
+                : value;
+    }
+
 }
