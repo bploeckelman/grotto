@@ -1,5 +1,6 @@
 package zendo.games.grotto.scene.components;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 
 public class Mappers {
@@ -11,4 +12,5 @@ public class Mappers {
     public static ComponentMapper<AnimatorComponent> animators = ComponentMapper.getFor(AnimatorComponent.class);
     public static ComponentMapper<RenderableComponent> renderables = ComponentMapper.getFor(RenderableComponent.class);
     public static ComponentMapper<PositionComponent> positions = ComponentMapper.getFor(PositionComponent.class);
+    public static ComponentMapper<Tilemap> tilemaps = ComponentMapper.getFor(Tilemap.class);
 }

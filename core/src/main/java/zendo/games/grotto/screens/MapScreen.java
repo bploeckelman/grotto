@@ -2,10 +2,10 @@ package zendo.games.grotto.screens;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -27,6 +27,7 @@ import zendo.games.grotto.scene.systems.RenderSystem;
 import zendo.games.grotto.utils.Calc;
 import zendo.games.grotto.utils.Point;
 
+import static com.badlogic.gdx.Input.Buttons;
 import static com.badlogic.gdx.Input.Keys;
 
 public class MapScreen extends BaseScreen {
@@ -37,6 +38,7 @@ public class MapScreen extends BaseScreen {
     AnimationSystem animationSystem;
 
     Entity player;
+    Entity map;
     CameraControllerComponent cameraController;
 
     static class UI {
@@ -60,10 +62,9 @@ public class MapScreen extends BaseScreen {
 
         var width = Gdx.graphics.getWidth() / 2;
         var height = Gdx.graphics.getHeight() / 2;
-        EntityFactory.createMap(engine, width, height);
+        this.map = EntityFactory.createMap(engine, width, height);
 
         this.player = EntityFactory.createPlayer(engine, Point.at(10, 10));
-        Mappers.movers.get(player).friction = 0.9f;
 
         var viewport = new ScreenViewport(windowCamera);
         UI.stage = new Stage(viewport, batch);
@@ -103,6 +104,14 @@ public class MapScreen extends BaseScreen {
         frameBuffer.begin();
         {
             ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+
+            var tilemap = Mappers.tilemaps.get(map);
+            if (tilemap != null) {
+                batch.setProjectionMatrix(worldCamera.combined);
+                batch.begin();
+                tilemap.render(batch, Point.zero());
+                batch.end();
+            }
 
             renderSystem.render(worldCamera, batch, assets.shapes);
             animationSystem.render(worldCamera, batch);
@@ -159,6 +168,8 @@ public class MapScreen extends BaseScreen {
 
     private final InputAdapter input = new InputAdapter() {
 
+        boolean leftMouseDown = false;
+        boolean rightMouseDown = false;
         boolean middleMouseDown = false;
 
         @Override
@@ -178,16 +189,20 @@ public class MapScreen extends BaseScreen {
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            if (button == Input.Buttons.MIDDLE) {
-                middleMouseDown = true;
+            switch (button) {
+                case Buttons.LEFT -> leftMouseDown = true;
+                case Buttons.RIGHT -> rightMouseDown = true;
+                case Buttons.MIDDLE -> middleMouseDown = true;
             }
             return false;
         }
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            if (button == Input.Buttons.MIDDLE) {
-                middleMouseDown = false;
+            switch (button) {
+                case Buttons.LEFT -> leftMouseDown = false;
+                case Buttons.RIGHT -> rightMouseDown = false;
+                case Buttons.MIDDLE -> middleMouseDown = false;
             }
             return false;
         }
@@ -197,12 +212,26 @@ public class MapScreen extends BaseScreen {
             if (middleMouseDown) {
                 worldCamera.translate(-Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
                 worldCamera.update();
+            } else {
+                worldCamera.unproject(pointerPos.set(screenX, screenY, 0));
+                var tilemap = Mappers.tilemaps.get(map);
+                if (tilemap != null) {
+                    var x = (int) Calc.floor(pointerPos.x) / tilemap.tileSize();
+                    var y = (int) Calc.floor(pointerPos.y) / tilemap.tileSize();
+                    var region = (TextureRegion) null;
+                    if (leftMouseDown) {
+                        region = assets.pixelRegion;
+                    }
+                    tilemap.setCell(x, y, region);
+                    return true;
+                }
             }
             return false;
         }
 
         @Override
         public boolean mouseMoved(int screenX, int screenY) {
+            // TODO - highlight hovered cell in tilemap
             return false;
         }
 

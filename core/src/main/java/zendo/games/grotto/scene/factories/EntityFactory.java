@@ -15,12 +15,18 @@ public class EntityFactory {
             var map = new MapComponent();
             var bounds = new BoundsComponent(width, height);
 
+            var tileSize = 8;
+            var cols = width / tileSize;
+            var rows = height / tileSize;
+            var tilemap = new Tilemap(tileSize, cols, rows);
+
             var recti = bounds.rect();
             var rect = new Rectangle(recti.x, recti.y, recti.w, recti.h);
             var shape = new ShapeComponent(rect);
 
             entity.add(name);
             entity.add(map);
+            entity.add(tilemap);
             entity.add(bounds);
             entity.add(shape);
 
