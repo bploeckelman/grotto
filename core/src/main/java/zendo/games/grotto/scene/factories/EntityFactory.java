@@ -11,22 +11,25 @@ public class EntityFactory {
     public static Entity createMap(Engine engine, int width, int height) {
         var entity = engine.createEntity();
         {
-            var name = new NameComponent("map");
-            var map = new MapComponent();
-            var bounds = new BoundsComponent(width, height);
+            var name = new Name("map");
+            var map = new Map();
+            var bounds = new Boundary(width, height);
 
             var tileSize = 8;
             var cols = width / tileSize;
             var rows = height / tileSize;
             var tilemap = new Tilemap(tileSize, cols, rows);
+            var collider = Collider.makeGrid(entity, tileSize, cols, rows);
+            collider.mask = Collider.Mask.solid;
 
             var recti = bounds.rect();
             var rect = new Rectangle(recti.x, recti.y, recti.w, recti.h);
-            var shape = new ShapeComponent(rect);
+            var shape = new Shape(rect);
 
             entity.add(name);
             entity.add(map);
             entity.add(tilemap);
+            entity.add(collider);
             entity.add(bounds);
             entity.add(shape);
 
@@ -38,10 +41,10 @@ public class EntityFactory {
     public static Entity createPlayer(Engine engine, Point playerPosition) {
         var entity = engine.createEntity();
         {
-            var name = new NameComponent("player");
-            var position = new PositionComponent(playerPosition);
-            var animator = new AnimatorComponent("hero", "idle");
-            var mover = new MoverComponent(position);
+            var name = new Name("player");
+            var position = new Position(playerPosition);
+            var animator = new Animator("hero", "idle");
+            var mover = new Mover(position);
 
             // TODO - collider
 

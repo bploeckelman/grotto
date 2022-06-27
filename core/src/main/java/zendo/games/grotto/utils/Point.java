@@ -1,11 +1,14 @@
 package zendo.games.grotto.utils;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 public class Point implements Pool.Poolable {
 
     public static Pool<Point> pool = Pools.get(Point.class);
+
+    public static final Point Zero = new Point(0, 0);
 
     public static Point zero() {
         return new Point();
@@ -43,6 +46,10 @@ public class Point implements Pool.Poolable {
 
     public Point set(Point other) {
         return set(other.x, other.y);
+    }
+
+    public Point set(Vector2 other) {
+        return set((int) other.x, (int) other.y);
     }
 
     public boolean is(int x, int y) {

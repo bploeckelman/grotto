@@ -9,7 +9,7 @@ import zendo.games.grotto.sprites.Content;
 import zendo.games.grotto.sprites.Sprite;
 import zendo.games.grotto.utils.Calc;
 
-public class AnimatorComponent implements Component {
+public class Animator implements Component {
 
     public enum LoopMode { none, loop }
 
@@ -24,7 +24,7 @@ public class AnimatorComponent implements Component {
     private int frameIndex;
     private float frameCounter;
 
-    public AnimatorComponent(String spriteName) {
+    public Animator(String spriteName) {
         scale = new Vector2(1f, 1f);
         tint = Color.WHITE.cpy();
         mode = LoopMode.loop;
@@ -32,7 +32,7 @@ public class AnimatorComponent implements Component {
         sprite = Content.findSprite(spriteName);
     }
 
-    public AnimatorComponent(String spriteName, String animationName) {
+    public Animator(String spriteName, String animationName) {
         this(spriteName);
         play(animationName);
     }
@@ -114,11 +114,11 @@ public class AnimatorComponent implements Component {
         tint.set(r, g, b, a);
     }
 
-    public AnimatorComponent play(String animation) {
+    public Animator play(String animation) {
         return play(animation, false);
     }
 
-    public AnimatorComponent play(String animation, boolean restart) {
+    public Animator play(String animation, boolean restart) {
         if (sprite == null) {
             throw new GdxRuntimeException("No Sprite assigned to animator");
         }

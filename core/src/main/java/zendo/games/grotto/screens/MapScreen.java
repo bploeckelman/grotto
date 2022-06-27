@@ -19,8 +19,9 @@ import zendo.games.grotto.Config;
 import zendo.games.grotto.Game;
 import zendo.games.grotto.scene.Scene;
 import zendo.games.grotto.scene.components.CameraControllerComponent;
+import zendo.games.grotto.scene.components.Collider;
 import zendo.games.grotto.scene.components.Mappers;
-import zendo.games.grotto.scene.components.MoverComponent;
+import zendo.games.grotto.scene.components.Mover;
 import zendo.games.grotto.scene.factories.EntityFactory;
 import zendo.games.grotto.scene.systems.AnimationSystem;
 import zendo.games.grotto.scene.systems.RenderSystem;
@@ -60,8 +61,8 @@ public class MapScreen extends BaseScreen {
         this.renderSystem = engine.getSystem(RenderSystem.class);
         this.animationSystem = engine.getSystem(AnimationSystem.class);
 
-        var width = Gdx.graphics.getWidth() / 2;
-        var height = Gdx.graphics.getHeight() / 2;
+        var width = Config.Screen.framebuffer_width;
+        var height = Config.Screen.framebuffer_height;
         this.map = EntityFactory.createMap(engine, width, height);
 
         this.player = EntityFactory.createPlayer(engine, Point.at(10, 10));
@@ -89,7 +90,7 @@ public class MapScreen extends BaseScreen {
 
         var speed = 200f;
         var moveAmount = speed * delta;
-        var mover = player.getComponent(MoverComponent.class);
+        var mover = player.getComponent(Mover.class);
         if      (Gdx.input.isKeyPressed(Keys.LEFT))  mover.speed.x -= moveAmount;
         else if (Gdx.input.isKeyPressed(Keys.RIGHT)) mover.speed.x += moveAmount;
 
@@ -117,7 +118,10 @@ public class MapScreen extends BaseScreen {
             animationSystem.render(worldCamera, batch);
 
             if (Config.Debug.general) {
+                batch.setProjectionMatrix(worldCamera.combined);
+                batch.begin();
                 animationSystem.render(assets.shapes);
+                batch.end();
             }
         }
         frameBuffer.end();
@@ -223,6 +227,12 @@ public class MapScreen extends BaseScreen {
                         region = assets.pixelRegion;
                     }
                     tilemap.setCell(x, y, region);
+
+                    var collider = Mappers.colliders.get(map);
+                    if (collider != null && collider.shape() == Collider.Shape.grid) {
+                        var cellFilled = (region != null);
+                        collider.setCell(x, y, cellFilled);
+                    }
                     return true;
                 }
             }

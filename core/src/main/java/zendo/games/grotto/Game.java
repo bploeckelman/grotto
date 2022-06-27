@@ -4,7 +4,6 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -31,6 +30,8 @@ import zendo.games.grotto.screens.TitleScreen;
 import zendo.games.grotto.utils.Time;
 import zendo.games.grotto.utils.accessors.*;
 
+import static com.badlogic.gdx.Input.Keys;
+
 public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 
 	public static Game instance;
@@ -55,7 +56,9 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 
 		engine = new Engine();
 		{
-			engine.addSystem(new AnimationSystem());
+			var animationSystem = new AnimationSystem();
+			engine.addEntityListener(Families.animators, animationSystem);
+			engine.addSystem(animationSystem);
 
 			var movementSystem = new MovementSystem();
 			engine.addEntityListener(Families.movers, movementSystem);
@@ -104,9 +107,12 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 	public void update(float delta) {
 		// handle top level input
 		{
-			if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				Gdx.app.exit();
 			}
+			if (Gdx.input.isKeyJustPressed(Keys.F1)) Config.Debug.general           = !Config.Debug.general;
+			if (Gdx.input.isKeyJustPressed(Keys.F2)) Config.Debug.draw_colliders    = !Config.Debug.draw_colliders;
+			if (Gdx.input.isKeyJustPressed(Keys.F3)) Config.Debug.draw_anim_bounds  = !Config.Debug.draw_anim_bounds;
 		}
 
 		// update time

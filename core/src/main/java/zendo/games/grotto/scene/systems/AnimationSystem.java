@@ -1,24 +1,42 @@
 package zendo.games.grotto.scene.systems;
 
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ObjectSet;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import zendo.games.grotto.Config;
-import zendo.games.grotto.scene.components.AnimatorComponent;
+import zendo.games.grotto.scene.components.Animator;
 import zendo.games.grotto.scene.components.Families;
-import zendo.games.grotto.scene.components.PositionComponent;
+import zendo.games.grotto.scene.components.Mappers;
+import zendo.games.grotto.scene.components.Position;
 
-public class AnimationSystem extends EntitySystem {
+public class AnimationSystem extends EntitySystem implements EntityListener {
+
+    private final ObjectSet<Animator> animators = new ObjectSet<>();
+
+    @Override
+    public void entityAdded(Entity entity) {
+        var animator = Mappers.animators.get(entity);
+        if (animator != null) {
+            animators.add(animator);
+        }
+    }
+
+    @Override
+    public void entityRemoved(Entity entity) {
+        var animator = Mappers.animators.get(entity);
+        if (animator != null) {
+            animators.remove(animator);
+        }
+    }
 
     @Override
     public void update(float delta) {
-        super.update(delta);
-
-        var entities = getEngine().getEntitiesFor(Families.animators);
-        for (var entity : entities) {
-            var animator = entity.getComponent(AnimatorComponent.class);
+        for (var animator : animators) {
             animator.update(delta);
         }
     }
@@ -29,8 +47,8 @@ public class AnimationSystem extends EntitySystem {
         {
             var entities = getEngine().getEntitiesFor(Families.animators);
             for (var entity : entities) {
-                var animator = entity.getComponent(AnimatorComponent.class);
-                var position = entity.getComponent(PositionComponent.class);
+                var animator = entity.getComponent(Animator.class);
+                var position = entity.getComponent(Position.class);
                 if (!animator.inValidState()) continue;
 
                 var sprite = animator.sprite();
@@ -57,8 +75,8 @@ public class AnimationSystem extends EntitySystem {
     public void render(ShapeDrawer shapes) {
         var entities = getEngine().getEntitiesFor(Families.animators);
         for (var entity : entities) {
-            var animator = entity.getComponent(AnimatorComponent.class);
-            var position = entity.getComponent(PositionComponent.class);
+            var animator = entity.getComponent(Animator.class);
+            var position = entity.getComponent(Position.class);
             if (!animator.inValidState()) continue;
 
             var sprite = animator.sprite();

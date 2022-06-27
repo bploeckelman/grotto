@@ -8,14 +8,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ObjectSet;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+import zendo.games.grotto.Config;
+import zendo.games.grotto.scene.components.Collider;
 import zendo.games.grotto.scene.components.Mappers;
-import zendo.games.grotto.scene.components.RenderableComponent;
-import zendo.games.grotto.scene.components.ShapeComponent;
+import zendo.games.grotto.scene.components.TextureComponent;
+import zendo.games.grotto.scene.components.Shape;
 
 public class RenderSystem extends EntitySystem implements EntityListener {
 
-    private final ObjectSet<ShapeComponent> shapeComponents = new ObjectSet<>();
-    private final ObjectSet<RenderableComponent> renderableComponents = new ObjectSet<>();
+    private final ObjectSet<Shape> shapeComponents = new ObjectSet<>();
+    private final ObjectSet<TextureComponent> renderableComponents = new ObjectSet<>();
+    private final ObjectSet<Collider> colliders = new ObjectSet<>();
 
     @Override
     public void entityAdded(Entity entity) {
@@ -24,9 +27,14 @@ public class RenderSystem extends EntitySystem implements EntityListener {
             shapeComponents.add(shape);
         }
 
-        var renderable = Mappers.renderables.get(entity);
+        var renderable = Mappers.textures.get(entity);
         if (renderable != null) {
             renderableComponents.add(renderable);
+        }
+
+        var collider = Mappers.colliders.get(entity);
+        if (collider != null) {
+            colliders.add(collider);
         }
     }
 
@@ -37,9 +45,14 @@ public class RenderSystem extends EntitySystem implements EntityListener {
             shapeComponents.remove(shape);
         }
 
-        var renderable = Mappers.renderables.get(entity);
+        var renderable = Mappers.textures.get(entity);
         if (renderable != null) {
             renderableComponents.remove(renderable);
+        }
+
+        var collider = Mappers.colliders.get(entity);
+        if (collider != null) {
+            colliders.remove(collider);
         }
     }
 
@@ -55,6 +68,12 @@ public class RenderSystem extends EntitySystem implements EntityListener {
             for (var renderable : renderableComponents) {
                 var bounds = renderable.bounds();
                 batch.draw(renderable.region(), bounds.x, bounds.y, bounds.width, bounds.height);
+            }
+
+            if (Config.Debug.draw_colliders) {
+                for (var collider : colliders) {
+                    collider.render(shapeDrawer);
+                }
             }
         }
         batch.end();

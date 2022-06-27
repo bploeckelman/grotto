@@ -5,11 +5,11 @@ import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.utils.ObjectSet;
 import zendo.games.grotto.scene.components.Mappers;
-import zendo.games.grotto.scene.components.MoverComponent;
+import zendo.games.grotto.scene.components.Mover;
 
 public class MovementSystem extends EntitySystem implements EntityListener {
 
-    private final ObjectSet<MoverComponent> movers = new ObjectSet<>();
+    private final ObjectSet<Mover> movers = new ObjectSet<>();
 
     @Override
     public void entityAdded(Entity entity) {

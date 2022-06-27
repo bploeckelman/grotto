@@ -4,16 +4,16 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import zendo.games.grotto.utils.Calc;
 
-public class MoverComponent implements Component {
+public class Mover implements Component {
 
     public float gravity;
     public float friction;
     public Vector2 speed;
-    public PositionComponent position;
+    public Position position;
 
     private final Vector2 remainder;
 
-    public MoverComponent(PositionComponent position) {
+    public Mover(Position position) {
         this.position = position;
         this.speed = new Vector2();
         this.remainder = new Vector2();

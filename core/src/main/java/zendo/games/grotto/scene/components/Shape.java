@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public record ShapeComponent(Shape2D shape) implements Component {
+public record Shape(Shape2D shape) implements Component {
 
     public void render(ShapeDrawer drawer, Color color) {
         // TODO - pattern matching on class is a jdk 17 (preview) feature, use that when we upgrade jdks
@@ -18,7 +18,7 @@ public record ShapeComponent(Shape2D shape) implements Component {
         }
         // TODO - add other handlers
         else {
-            Gdx.app.error(ShapeComponent.class.getSimpleName(), "Unhandled Shape2D type: " + shape.getClass().getSimpleName());
+            Gdx.app.error(Shape.class.getSimpleName(), "Unhandled Shape2D type: " + shape.getClass().getSimpleName());
         }
     }
 

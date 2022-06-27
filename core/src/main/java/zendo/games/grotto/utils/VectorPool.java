@@ -7,7 +7,8 @@ import com.badlogic.gdx.utils.Pools;
 
 public class VectorPool {
 
-    public static Pool<Vector2> dim2 = Pools.get(Vector2.class, 100);
-    public static Pool<Vector3> dim3 = Pools.get(Vector3.class, 100);
+    public static Pool<Vector2> vec2 = Pools.get(Vector2.class, 100);
+    public static Pool<Vector3> vec3 = Pools.get(Vector3.class, 100);
+    public static Pool<Point> int2 = Pools.get(Point.class, 100);
 
 }

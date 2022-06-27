@@ -1,16 +1,16 @@
 package zendo.games.grotto.scene.components;
 
-import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 
 public class Mappers {
-    public static ComponentMapper<NameComponent> names = ComponentMapper.getFor(NameComponent.class);
-    public static ComponentMapper<MapComponent> maps = ComponentMapper.getFor(MapComponent.class);
-    public static ComponentMapper<BoundsComponent> bounds = ComponentMapper.getFor(BoundsComponent.class);
-    public static ComponentMapper<MoverComponent> movers = ComponentMapper.getFor(MoverComponent.class);
-    public static ComponentMapper<ShapeComponent> shapes = ComponentMapper.getFor(ShapeComponent.class);
-    public static ComponentMapper<AnimatorComponent> animators = ComponentMapper.getFor(AnimatorComponent.class);
-    public static ComponentMapper<RenderableComponent> renderables = ComponentMapper.getFor(RenderableComponent.class);
-    public static ComponentMapper<PositionComponent> positions = ComponentMapper.getFor(PositionComponent.class);
+    public static ComponentMapper<Name> names = ComponentMapper.getFor(Name.class);
+    public static ComponentMapper<Map> maps = ComponentMapper.getFor(Map.class);
+    public static ComponentMapper<Boundary> boundaries = ComponentMapper.getFor(Boundary.class);
+    public static ComponentMapper<Mover> movers = ComponentMapper.getFor(Mover.class);
+    public static ComponentMapper<Shape> shapes = ComponentMapper.getFor(Shape.class);
+    public static ComponentMapper<Animator> animators = ComponentMapper.getFor(Animator.class);
+    public static ComponentMapper<TextureComponent> textures = ComponentMapper.getFor(TextureComponent.class);
+    public static ComponentMapper<Position> positions = ComponentMapper.getFor(Position.class);
     public static ComponentMapper<Tilemap> tilemaps = ComponentMapper.getFor(Tilemap.class);
+    public static ComponentMapper<Collider> colliders = ComponentMapper.getFor(Collider.class);
 }
