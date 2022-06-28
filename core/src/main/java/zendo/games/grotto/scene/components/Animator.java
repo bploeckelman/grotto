@@ -1,10 +1,13 @@
 package zendo.games.grotto.scene.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import space.earlygrey.shapedrawer.JoinType;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 import zendo.games.grotto.sprites.Content;
 import zendo.games.grotto.sprites.Sprite;
 import zendo.games.grotto.utils.Calc;
@@ -24,7 +27,10 @@ public class Animator implements Component {
     private int frameIndex;
     private float frameCounter;
 
-    public Animator(String spriteName) {
+    public final Entity entity;
+
+    public Animator(Entity entity, String spriteName) {
+        this.entity = entity;
         scale = new Vector2(1f, 1f);
         tint = Color.WHITE.cpy();
         mode = LoopMode.loop;
@@ -32,8 +38,8 @@ public class Animator implements Component {
         sprite = Content.findSprite(spriteName);
     }
 
-    public Animator(String spriteName, String animationName) {
-        this(spriteName);
+    public Animator(Entity entity, String spriteName, String animationName) {
+        this(entity, spriteName);
         play(animationName);
     }
 
@@ -62,9 +68,57 @@ public class Animator implements Component {
                 }
             }
         }
+
+        // lerp scale back to normal
+        {
+            var facing = 1;
+            var sx = Calc.approach(Calc.abs(scale.x), 1f, 4 * delta);
+            var sy = Calc.approach(Calc.abs(scale.y), 1f, 4 * delta);
+            scale.set(facing * sx, sy);
+        }
     }
 
-    public void render(ShapeRenderer shapes) {
+    public void render(SpriteBatch batch) {
+        var position = Mappers.positions.get(entity);
+        if (!inValidState()) return;
+
+        var sprite = sprite();
+        var anim = sprite.animations.get(animationIndex());
+        var frame = anim.frames.get(frameIndex());
+
+        batch.setColor(tint());
+        batch.draw(frame.image,
+                position.x() - sprite().origin.x,
+                position.y() - sprite().origin.y,
+                sprite.origin.x,
+                sprite.origin.y,
+                frame.image.getRegionWidth(),
+                frame.image.getRegionHeight(),
+                scale.x, scale.y,
+                rotation
+        );
+        batch.setColor(Color.WHITE);
+    }
+
+    public void render(ShapeDrawer shapes) {
+        var position = Mappers.positions.get(entity);
+        if (!inValidState()) return;
+
+        var sprite = sprite();
+        var anim = sprite.animations.get(animationIndex());
+        var frame = anim.frames.get(frameIndex());
+        var lineWidth = 1f;
+
+        shapes.setColor(Color.YELLOW);
+        shapes.rectangle(
+                position.x() - sprite().origin.x,
+                position.y() - sprite().origin.y,
+                frame.image.getRegionWidth() * scale.x,
+                frame.image.getRegionHeight() * scale.y,
+                lineWidth,
+                JoinType.SMOOTH
+        );
+        shapes.setColor(Color.WHITE);
     }
 
     public Sprite sprite() {

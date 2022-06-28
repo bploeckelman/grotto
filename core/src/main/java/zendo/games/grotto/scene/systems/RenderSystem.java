@@ -9,32 +9,42 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ObjectSet;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import zendo.games.grotto.Config;
-import zendo.games.grotto.scene.components.Collider;
-import zendo.games.grotto.scene.components.Mappers;
-import zendo.games.grotto.scene.components.TextureComponent;
-import zendo.games.grotto.scene.components.Shape;
+import zendo.games.grotto.scene.components.*;
+import zendo.games.grotto.utils.Point;
 
 public class RenderSystem extends EntitySystem implements EntityListener {
 
-    private final ObjectSet<Shape> shapeComponents = new ObjectSet<>();
-    private final ObjectSet<TextureComponent> renderableComponents = new ObjectSet<>();
+    private final ObjectSet<Shape> shapes = new ObjectSet<>();
+    private final ObjectSet<TextureComponent> textures = new ObjectSet<>();
     private final ObjectSet<Collider> colliders = new ObjectSet<>();
+    private final ObjectSet<Tilemap> tilemaps = new ObjectSet<>();
+    private final ObjectSet<Animator> animators = new ObjectSet<>();
 
     @Override
     public void entityAdded(Entity entity) {
         var shape = Mappers.shapes.get(entity);
         if (shape != null) {
-            shapeComponents.add(shape);
+            shapes.add(shape);
         }
 
         var renderable = Mappers.textures.get(entity);
         if (renderable != null) {
-            renderableComponents.add(renderable);
+            textures.add(renderable);
         }
 
         var collider = Mappers.colliders.get(entity);
         if (collider != null) {
             colliders.add(collider);
+        }
+
+        var tilemap = Mappers.tilemaps.get(entity);
+        if (tilemap != null) {
+            tilemaps.add(tilemap);
+        }
+
+        var animator = Mappers.animators.get(entity);
+        if (animator != null) {
+            animators.add(animator);
         }
     }
 
@@ -42,17 +52,27 @@ public class RenderSystem extends EntitySystem implements EntityListener {
     public void entityRemoved(Entity entity) {
         var shape = Mappers.shapes.get(entity);
         if (shape != null) {
-            shapeComponents.remove(shape);
+            shapes.remove(shape);
         }
 
         var renderable = Mappers.textures.get(entity);
         if (renderable != null) {
-            renderableComponents.remove(renderable);
+            textures.remove(renderable);
         }
 
         var collider = Mappers.colliders.get(entity);
         if (collider != null) {
             colliders.remove(collider);
+        }
+
+        var tilemap = Mappers.tilemaps.get(entity);
+        if (tilemap != null) {
+            tilemaps.remove(tilemap);
+        }
+
+        var animator = Mappers.animators.get(entity);
+        if (animator != null) {
+            animators.remove(animator);
         }
     }
 
@@ -60,17 +80,30 @@ public class RenderSystem extends EntitySystem implements EntityListener {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         {
-            for (var shape : shapeComponents) {
+            for (var tilemap : tilemaps) {
+                tilemap.render(batch, Point.Zero);
+            }
+
+            for (var shape : shapes) {
                 shape.render(shapeDrawer, Color.WHITE);
             }
 
-            // draw sprite components
-            for (var renderable : renderableComponents) {
+            for (var renderable : textures) {
                 var bounds = renderable.bounds();
                 batch.draw(renderable.region(), bounds.x, bounds.y, bounds.width, bounds.height);
             }
 
-            if (Config.Debug.draw_colliders) {
+            for (var animator : animators) {
+                animator.render(batch);
+            }
+
+            if (Config.Debug.draw_anim_bounds || Config.Debug.general) {
+                for (var animator : animators) {
+                    animator.render(shapeDrawer);
+                }
+            }
+
+            if (Config.Debug.draw_colliders || Config.Debug.general) {
                 for (var collider : colliders) {
                     collider.render(shapeDrawer);
                 }

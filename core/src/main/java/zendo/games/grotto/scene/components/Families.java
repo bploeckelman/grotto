@@ -17,6 +17,8 @@ public class Families {
     public static Family renderSystem = Family.one(
             TextureComponent.class,
             Collider.class,
+            Tilemap.class,
+            Animator.class,
             Shape.class
     ).get();
 }

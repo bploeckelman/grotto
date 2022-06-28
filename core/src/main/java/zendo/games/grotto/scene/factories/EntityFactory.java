@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
 import zendo.games.grotto.scene.components.*;
 import zendo.games.grotto.utils.Point;
+import zendo.games.grotto.utils.RectI;
 
 public class EntityFactory {
 
@@ -43,13 +44,20 @@ public class EntityFactory {
         {
             var name = new Name("player");
             var position = new Position(playerPosition);
-            var animator = new Animator("hero", "idle");
-            var mover = new Mover(position);
+            var animator = new Animator(entity, "hero", "idle");
 
-            // TODO - collider
+            var rect = RectI.at(-2, 0, 6, 12);
+            var collider = Collider.makeRect(entity, rect);
+            collider.mask = Collider.Mask.player;
+
+            var mover = new Mover(position);
+            mover.collider = collider;
+            mover.gravity = -400f;
+            mover.friction = 250f;
 
             entity.add(name);
             entity.add(position);
+            entity.add(collider);
             entity.add(mover);
             entity.add(animator);
 

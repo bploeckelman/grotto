@@ -12,7 +12,6 @@ import zendo.games.grotto.Config;
 import zendo.games.grotto.scene.components.Animator;
 import zendo.games.grotto.scene.components.Families;
 import zendo.games.grotto.scene.components.Mappers;
-import zendo.games.grotto.scene.components.Position;
 
 public class AnimationSystem extends EntitySystem implements EntityListener {
 
@@ -47,8 +46,8 @@ public class AnimationSystem extends EntitySystem implements EntityListener {
         {
             var entities = getEngine().getEntitiesFor(Families.animators);
             for (var entity : entities) {
-                var animator = entity.getComponent(Animator.class);
-                var position = entity.getComponent(Position.class);
+                var animator = Mappers.animators.get(entity);
+                var position = Mappers.positions.get(entity);
                 if (!animator.inValidState()) continue;
 
                 var sprite = animator.sprite();
@@ -75,8 +74,8 @@ public class AnimationSystem extends EntitySystem implements EntityListener {
     public void render(ShapeDrawer shapes) {
         var entities = getEngine().getEntitiesFor(Families.animators);
         for (var entity : entities) {
-            var animator = entity.getComponent(Animator.class);
-            var position = entity.getComponent(Position.class);
+            var animator = Mappers.animators.get(entity);
+            var position = Mappers.positions.get(entity);
             if (!animator.inValidState()) continue;
 
             var sprite = animator.sprite();
@@ -90,7 +89,7 @@ public class AnimationSystem extends EntitySystem implements EntityListener {
             if (!Config.Debug.draw_anim_bounds) continue;
 
             // draw anim image bounds
-            var lineWidth = 2f;
+            var lineWidth = 1f;
             var x = position.x() - sprite.origin.x;
             var y = position.y() - sprite.origin.y;
             var w = frame.image.getRegionWidth();

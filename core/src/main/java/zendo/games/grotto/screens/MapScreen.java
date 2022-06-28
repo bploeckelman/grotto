@@ -18,10 +18,8 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import zendo.games.grotto.Config;
 import zendo.games.grotto.Game;
 import zendo.games.grotto.scene.Scene;
-import zendo.games.grotto.scene.components.CameraControllerComponent;
 import zendo.games.grotto.scene.components.Collider;
 import zendo.games.grotto.scene.components.Mappers;
-import zendo.games.grotto.scene.components.Mover;
 import zendo.games.grotto.scene.factories.EntityFactory;
 import zendo.games.grotto.scene.systems.AnimationSystem;
 import zendo.games.grotto.scene.systems.RenderSystem;
@@ -40,13 +38,16 @@ public class MapScreen extends BaseScreen {
 
     Entity player;
     Entity map;
-    CameraControllerComponent cameraController;
+
+    private boolean isJumping = false;
 
     static class UI {
         static Stage stage;
 
         static VisLabel fpsLabel;
         static VisLabel playerPosLabel;
+        static VisLabel playerSpeedLabel;
+        static VisLabel playerColliderLabel;
     }
 
     @Override
@@ -65,7 +66,19 @@ public class MapScreen extends BaseScreen {
         var height = Config.Screen.framebuffer_height;
         this.map = EntityFactory.createMap(engine, width, height);
 
-        this.player = EntityFactory.createPlayer(engine, Point.at(10, 10));
+        // place a floor and walls
+        var tilemap = Mappers.tilemaps.get(map);
+        tilemap.setCells(0, 0, tilemap.cols(), 1, assets.pixelRegion);
+        tilemap.setCells(0, 0, 1, tilemap.rows(), assets.pixelRegion);
+        tilemap.setCells(tilemap.cols() - 1, 0, 1, tilemap.rows(), assets.pixelRegion);
+        var collider = Mappers.colliders.get(map);
+        collider.setCells(0, 0, tilemap.cols(), 1, true);
+        collider.setCells(0, 0, 1, tilemap.rows(), true);
+        collider.setCells(tilemap.cols() - 1, 0, 1, tilemap.rows(), true);
+
+        this.player = EntityFactory.createPlayer(engine, Point.at(10, 20));
+        var mover = Mappers.movers.get(player);
+        mover.speed.set(100, 200);
 
         var viewport = new ScreenViewport(windowCamera);
         UI.stage = new Stage(viewport, batch);
@@ -88,11 +101,42 @@ public class MapScreen extends BaseScreen {
         scene.update(delta);
         updateUserInterfaceElements();
 
-        var speed = 200f;
-        var moveAmount = speed * delta;
-        var mover = player.getComponent(Mover.class);
-        if      (Gdx.input.isKeyPressed(Keys.LEFT))  mover.speed.x -= moveAmount;
-        else if (Gdx.input.isKeyPressed(Keys.RIGHT)) mover.speed.x += moveAmount;
+        var leftPressed  = Gdx.input.isKeyPressed(Keys.LEFT)  || Gdx.input.isKeyPressed(Keys.A);
+        var rightPressed = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
+        var spacePressed = Gdx.input.isKeyPressed(Keys.SPACE);
+
+        var mover = Mappers.movers.get(player);
+
+        // horizontal movement
+        {
+            var inputDir = leftPressed ? -1 : rightPressed ? 1 : 0;
+
+            var acceleration_ground = 700f;
+            mover.speed.x += inputDir * acceleration_ground * delta;
+
+            var max_speed = 70;
+            if (Calc.abs(mover.speed.x) > max_speed) {
+                var facing = Calc.sign(mover.speed.x);
+                mover.speed.x = Calc.approach(mover.speed.x, facing * max_speed, 2000 * delta);
+            }
+        }
+
+        // vertical movement
+        {
+            if (spacePressed && !isJumping) {
+                isJumping = true;
+
+                var jump_force = 150;
+                mover.speed.y = jump_force;
+
+                // squash and stretch
+                var anim = Mappers.animators.get(player);
+                anim.scale.set(0.8f, 1.6f);
+            }
+            if (isJumping && mover.isOnGround()) {
+                isJumping = false;
+            }
+        }
 
         super.update(delta);
     }
@@ -105,24 +149,7 @@ public class MapScreen extends BaseScreen {
         frameBuffer.begin();
         {
             ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-
-            var tilemap = Mappers.tilemaps.get(map);
-            if (tilemap != null) {
-                batch.setProjectionMatrix(worldCamera.combined);
-                batch.begin();
-                tilemap.render(batch, Point.zero());
-                batch.end();
-            }
-
             renderSystem.render(worldCamera, batch, assets.shapes);
-            animationSystem.render(worldCamera, batch);
-
-            if (Config.Debug.general) {
-                batch.setProjectionMatrix(worldCamera.combined);
-                batch.begin();
-                animationSystem.render(assets.shapes);
-                batch.end();
-            }
         }
         frameBuffer.end();
 
@@ -141,8 +168,18 @@ public class MapScreen extends BaseScreen {
     }
 
     private void createUserInterfaceElements() {
+        var textColor = Color.FOREST.cpy();
         UI.fpsLabel = new VisLabel("0 fps");
+        UI.fpsLabel.setColor(textColor);
+
         UI.playerPosLabel = new VisLabel("(0, 0)");
+        UI.playerPosLabel.setColor(textColor);
+
+        UI.playerSpeedLabel = new VisLabel("(0, 0)");
+        UI.playerSpeedLabel.setColor(textColor);
+
+        UI.playerColliderLabel = new VisLabel("[0, 0 : 0, 0]");
+        UI.playerColliderLabel.setColor(textColor);
 
         var testButton = new VisTextButton("test");
         testButton.addListener(new ClickListener() {
@@ -153,11 +190,13 @@ public class MapScreen extends BaseScreen {
         });
 
         var table = new VisTable();
-        table.padLeft(10f);
+        table.padLeft(40f);
         table.left().top();
         table.defaults().align(Align.left);
         table.add(UI.fpsLabel).expandX().row();
         table.add(UI.playerPosLabel).expandX().row();
+        table.add(UI.playerSpeedLabel).expandX().row();
+        table.add(UI.playerColliderLabel).expandX().row();
         table.add(testButton).row();
         table.setFillParent(true);
 
@@ -165,9 +204,16 @@ public class MapScreen extends BaseScreen {
     }
 
     private void updateUserInterfaceElements() {
-        var position = Mappers.positions.get(player).position();
         UI.fpsLabel.setText(Gdx.graphics.getFramesPerSecond() + " fps");
+
+        var position = Mappers.positions.get(player).position();
         UI.playerPosLabel.setText(String.format("(%.1f, %.1f)", position.x, position.y));
+
+        var mover = Mappers.movers.get(player);
+        UI.playerSpeedLabel.setText(String.format("(%.1f, %.1f)", mover.speed.x, mover.speed.y));
+
+        var collider = Mappers.colliders.get(player).rect();
+        UI.playerColliderLabel.setText(String.format("[%d, %d : %d, %d]", collider.x, collider.y, collider.w, collider.h));
     }
 
     private final InputAdapter input = new InputAdapter() {

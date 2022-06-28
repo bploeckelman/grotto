@@ -3,6 +3,7 @@ package zendo.games.grotto.scene.components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import zendo.games.grotto.utils.Calc;
+import zendo.games.grotto.utils.Point;
 
 public class Mover implements Component {
 
@@ -10,6 +11,7 @@ public class Mover implements Component {
     public float friction;
     public Vector2 speed;
     public Position position;
+    public Collider collider;
 
     private final Vector2 remainder;
 
@@ -17,10 +19,6 @@ public class Mover implements Component {
         this.position = position;
         this.speed = new Vector2();
         this.remainder = new Vector2();
-    }
-
-    public boolean isOnGround() {
-        return (position.y() == 0);
     }
 
     public void update(float delta) {
@@ -46,32 +44,48 @@ public class Mover implements Component {
     }
 
     public boolean moveX(int amount) {
-        var sign = Calc.sign(amount);
-        while (amount != 0) {
-            // TODO - check for collision with other colliders in movement direction
-            if (sign < 0 || sign > 180) { // TEMP
-                stopX();
-                return true;
-            }
+        if (collider == null) {
+            position.position().x += amount;
+        } else {
+            var sign = Calc.sign(amount);
 
-            amount -= sign;
-            position.position().x += sign;
+            while (amount != 0) {
+                var offset = Point.pool.obtain().set(sign, 0);
+                var isSolid = collider.check(Collider.Mask.solid, offset);
+                Point.pool.free(offset);
+
+                if (isSolid) {
+                    stopX();
+                    return true;
+                }
+
+                amount -= sign;
+                position.position().x += sign;
+            }
         }
 
         return false;
     }
 
     public boolean moveY(int amount) {
-        var sign = Calc.sign(amount);
-        while (amount != 0) {
-            // TODO - check for collision with other colliders in movement direction
-            if (isOnGround()) {
-                stopY();
-                return true;
-            }
+        if (collider == null) {
+            position.position().y += amount;
+        } else {
+            var sign = Calc.sign(amount);
 
-            amount -= sign;
-            position.position().y += sign;
+            while (amount != 0) {
+                var offset = Point.pool.obtain().set(0, sign);
+                var isSolid = collider.check(Collider.Mask.solid, offset);
+                Point.pool.free(offset);
+
+                if (isSolid) {
+                    stopY();
+                    return true;
+                }
+
+                amount -= sign;
+                position.position().y += sign;
+            }
         }
 
         return false;
@@ -90,6 +104,22 @@ public class Mover implements Component {
     public void stopY() {
         speed.y = 0f;
         remainder.y = 0f;
+    }
+
+    public boolean isOnGround() {
+        return onGround(-1);
+    }
+
+    public boolean onGround(int dist) {
+        if (collider == null) {
+            return false;
+        }
+
+        var offset = Point.pool.obtain().set(0, dist);
+        var hitSolid = collider.check(Collider.Mask.solid, offset);
+        Point.pool.free(offset);
+
+        return hitSolid;
     }
 
 }

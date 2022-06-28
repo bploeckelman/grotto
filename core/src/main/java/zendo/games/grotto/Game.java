@@ -99,7 +99,7 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 		screenManager.addScreen("title", new TitleScreen());
 		screenManager.addScreen("map", new MapScreen());
 		screenManager.addScreenTransition("blend", new BlendingTransition(assets.batch, 1f));
-		screenManager.addScreenTransition("push", new PushTransition(assets.batch, SlidingDirection.DOWN, 0.5f));
+		screenManager.addScreenTransition("push", new PushTransition(assets.batch, SlidingDirection.UP, 0.25f));
 
 		screenManager.pushScreen("title", "blend");
 	}

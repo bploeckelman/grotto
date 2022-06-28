@@ -199,7 +199,7 @@ public class Collider implements Component {
             var other = Mappers.colliders.get(entity);
             var isDifferent = (other != this);
             var isMasked = ((other.mask & mask) == mask);
-            var isOverlap = overlaps(other, offset);
+            var isOverlap = overlaps(other, offset); // TODO - issue in rectVsGrid check
             if (isDifferent && isMasked && isOverlap) {
                 return true;
             }
@@ -272,13 +272,13 @@ public class Collider implements Component {
         }
 
         var rectA = RectI.pool.obtain().set(
-                (int) a_position.x + a.origin.x + a.rect.x + offset.x,
-                (int) a_position.y + a.origin.y + a.rect.y + offset.y,
+                a_position.x + a.origin.x + a.rect.x + offset.x,
+                a_position.y + a.origin.y + a.rect.y + offset.y,
                 a.rect.w, a.rect.h
         );
         var rectB = RectI.pool.obtain().set(
-                (int) b_position.x + b.origin.x + b.rect.x,
-                (int) b_position.y + b.origin.y + b.rect.y,
+                b_position.x + b.origin.x + b.rect.x,
+                b_position.y + b.origin.y + b.rect.y,
                 b.rect.w, b.rect.h
         );
 
@@ -325,16 +325,16 @@ public class Collider implements Component {
         }
 
         // get the cells the rectangle overlaps
-        // subtract out the rect collider's origin to put it back in the same space as the grid (0..col*tileSz,0..row*tileSz)
-        int left   = Calc.clampInt((int) Calc.floor  (rect.x        / (float) b.grid.tileSize), 0, b.grid.cols);
+        int left   = Calc.clampInt((int) Calc.floor  (rect.left()   / (float) b.grid.tileSize), 0, b.grid.cols);
         int right  = Calc.clampInt((int) Calc.ceiling(rect.right()  / (float) b.grid.tileSize), 0, b.grid.cols);
-        int top    = Calc.clampInt((int) Calc.floor  (rect.y        / (float) b.grid.tileSize), 0, b.grid.rows);
-        int bottom = Calc.clampInt((int) Calc.ceiling(rect.bottom() / (float) b.grid.tileSize), 0, b.grid.rows);
+        int top    = Calc.clampInt((int) Calc.ceiling(rect.top()    / (float) b.grid.tileSize), 0, b.grid.rows);
+        int bottom = Calc.clampInt((int) Calc.floor  (rect.bottom() / (float) b.grid.tileSize), 0, b.grid.rows);
 
         // check each cell
         for (int x = left; x < right; x++) {
-            for (int y = top; y < bottom; y++) {
-                if (b.grid.cells[x + y * b.grid.cols]) {
+            for (int y = bottom; y < top; y++) {
+                var cellFilled = b.grid.cells[x + y * b.grid.cols];
+                if (cellFilled) {
                     RectI.pool.free(rect);
                     RectI.pool.free(gridBounds);
                     VectorPool.int2.free(a_position);
