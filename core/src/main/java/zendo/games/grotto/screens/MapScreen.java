@@ -216,11 +216,34 @@ public class MapScreen extends BaseScreen {
         UI.playerColliderLabel.setText(String.format("[%d, %d : %d, %d]", collider.x, collider.y, collider.w, collider.h));
     }
 
-    private final InputAdapter input = new InputAdapter() {
+    private boolean paintMapAt(int screenX, int screenY) {
+        worldCamera.unproject(pointerPos.set(screenX, screenY, 0));
+        var tilemap = Mappers.tilemaps.get(map);
+        if (tilemap == null) {
+            return false;
+        }
 
-        boolean leftMouseDown = false;
-        boolean rightMouseDown = false;
-        boolean middleMouseDown = false;
+        var x = (int) Calc.floor(pointerPos.x) / tilemap.tileSize();
+        var y = (int) Calc.floor(pointerPos.y) / tilemap.tileSize();
+        var region = (TextureRegion) null;
+        if (leftMouseDown) {
+            region = assets.pixelRegion;
+        }
+        tilemap.setCell(x, y, region);
+
+        var collider = Mappers.colliders.get(map);
+        if (collider != null && collider.shape() == Collider.Shape.grid) {
+            var cellFilled = (region != null);
+            collider.setCell(x, y, cellFilled);
+        }
+        return true;
+    }
+
+    private boolean leftMouseDown = false;
+    private boolean rightMouseDown = false;
+    private boolean middleMouseDown = false;
+
+    private final InputAdapter input = new InputAdapter() {
 
         @Override
         public boolean keyDown(int keycode) {
@@ -244,6 +267,9 @@ public class MapScreen extends BaseScreen {
                 case Buttons.RIGHT -> rightMouseDown = true;
                 case Buttons.MIDDLE -> middleMouseDown = true;
             }
+            if (leftMouseDown || rightMouseDown) {
+                return paintMapAt(screenX, screenY);
+            }
             return false;
         }
 
@@ -262,27 +288,10 @@ public class MapScreen extends BaseScreen {
             if (middleMouseDown) {
                 worldCamera.translate(-Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
                 worldCamera.update();
+                return true;
             } else {
-                worldCamera.unproject(pointerPos.set(screenX, screenY, 0));
-                var tilemap = Mappers.tilemaps.get(map);
-                if (tilemap != null) {
-                    var x = (int) Calc.floor(pointerPos.x) / tilemap.tileSize();
-                    var y = (int) Calc.floor(pointerPos.y) / tilemap.tileSize();
-                    var region = (TextureRegion) null;
-                    if (leftMouseDown) {
-                        region = assets.pixelRegion;
-                    }
-                    tilemap.setCell(x, y, region);
-
-                    var collider = Mappers.colliders.get(map);
-                    if (collider != null && collider.shape() == Collider.Shape.grid) {
-                        var cellFilled = (region != null);
-                        collider.setCell(x, y, cellFilled);
-                    }
-                    return true;
-                }
+                return paintMapAt(screenX, screenY);
             }
-            return false;
         }
 
         @Override
