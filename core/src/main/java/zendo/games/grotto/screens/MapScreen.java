@@ -39,6 +39,8 @@ public class MapScreen extends BaseScreen {
     Entity player;
     Entity map;
 
+    Point highlightedTile = Point.zero();
+
     private boolean isJumping = false;
 
     static class UI {
@@ -150,6 +152,16 @@ public class MapScreen extends BaseScreen {
         {
             ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
             renderSystem.render(worldCamera, batch, assets.shapes);
+
+            batch.setProjectionMatrix(worldCamera.combined);
+            batch.begin();
+            {
+                var tileSize = Mappers.tilemaps.get(map).tileSize();
+                batch.setColor(0.1f, 1f, 0.1f, 0.5f);
+                batch.draw(assets.pixelRegion, highlightedTile.x * tileSize, highlightedTile.y * tileSize, tileSize, tileSize);
+                batch.setColor(Color.WHITE);
+            }
+            batch.end();
         }
         frameBuffer.end();
 
@@ -214,6 +226,19 @@ public class MapScreen extends BaseScreen {
 
         var collider = Mappers.colliders.get(player).rect();
         UI.playerColliderLabel.setText(String.format("[%d, %d : %d, %d]", collider.x, collider.y, collider.w, collider.h));
+    }
+
+    private void setHighlightedTileAt(int screenX, int screenY) {
+        var tilemap = Mappers.tilemaps.get(map);
+        if (tilemap == null) {
+            return;
+        }
+
+        worldCamera.unproject(pointerPos.set(screenX, screenY, 0));
+        var x = (int) Calc.floor(pointerPos.x) / tilemap.tileSize();
+        var y = (int) Calc.floor(pointerPos.y) / tilemap.tileSize();
+
+        highlightedTile.set(x, y);
     }
 
     private boolean paintMapAt(int screenX, int screenY) {
@@ -290,13 +315,14 @@ public class MapScreen extends BaseScreen {
                 worldCamera.update();
                 return true;
             } else {
+                setHighlightedTileAt(screenX, screenY);
                 return paintMapAt(screenX, screenY);
             }
         }
 
         @Override
         public boolean mouseMoved(int screenX, int screenY) {
-            // TODO - highlight hovered cell in tilemap
+            setHighlightedTileAt(screenX, screenY);
             return false;
         }
 
