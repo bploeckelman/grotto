@@ -87,7 +87,7 @@ public class Collider implements Component {
     public RectI worldRect() {
         var position = VectorPool.vec2.obtain().setZero();
         if (Mappers.positions.has(entity)) {
-            position.set(Mappers.positions.get(entity).position());
+            position.set(Mappers.positions.get(entity).value());
         }
         worldRect.set(
                 (int) position.x + origin.x + rect.x,
@@ -231,7 +231,7 @@ public class Collider implements Component {
     public void render(ShapeDrawer shapes) {
         var position = VectorPool.int2.obtain();
         if (Mappers.positions.has(entity)) {
-            position.set(Mappers.positions.get(entity).position());
+            position.set(Mappers.positions.get(entity).value());
         }
 
         shapes.setColor(DEBUG_COLOR);
@@ -265,10 +265,10 @@ public class Collider implements Component {
         var a_position = VectorPool.int2.obtain();
         var b_position = VectorPool.int2.obtain();
         if (Mappers.positions.has(a.entity)) {
-            a_position.set(Mappers.positions.get(a.entity).position());
+            a_position.set(Mappers.positions.get(a.entity).value());
         }
         if (Mappers.positions.has(b.entity)) {
-            b_position.set(Mappers.positions.get(b.entity).position());
+            b_position.set(Mappers.positions.get(b.entity).value());
         }
 
         var rectA = RectI.pool.obtain().set(
@@ -294,10 +294,10 @@ public class Collider implements Component {
         var a_position = VectorPool.int2.obtain();
         var b_position = VectorPool.int2.obtain();
         if (Mappers.positions.has(a.entity)) {
-            a_position.set(Mappers.positions.get(a.entity).position());
+            a_position.set(Mappers.positions.get(a.entity).value());
         }
         if (Mappers.positions.has(b.entity)) {
-            b_position.set(Mappers.positions.get(b.entity).position());
+            b_position.set(Mappers.positions.get(b.entity).value());
         }
 
         // get a relative rectangle to the grid

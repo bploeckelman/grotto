@@ -52,14 +52,17 @@ public class EntityFactory {
 
             var mover = new Mover(position);
             mover.collider = collider;
-            mover.gravity = -400f;
+//            mover.gravity = -400f;
             mover.friction = 250f;
+
+            var player = new Player(entity);
 
             entity.add(name);
             entity.add(position);
             entity.add(collider);
             entity.add(mover);
             entity.add(animator);
+            entity.add(player);
 
             engine.addEntity(entity);
         }

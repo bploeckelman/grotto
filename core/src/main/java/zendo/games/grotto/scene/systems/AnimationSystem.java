@@ -84,7 +84,7 @@ public class AnimationSystem extends EntitySystem implements EntityListener {
 
             // draw entity position
             var radius = 1f;
-            shapes.filledCircle(position.position(), radius, Color.MAGENTA);
+            shapes.filledCircle(position.value(), radius, Color.MAGENTA);
 
             if (!Config.Debug.draw_anim_bounds) continue;
 

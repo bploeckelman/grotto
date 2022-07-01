@@ -12,6 +12,7 @@ public class Families {
     public static Family textures = Family.one(TextureComponent.class).get();
     public static Family animators = Family.one(Animator.class).get();
     public static Family colliders = Family.one(Collider.class).get();
+    public static Family players = Family.one(Player.class).get();
 
     // system families
     public static Family renderSystem = Family.one(
@@ -20,5 +21,8 @@ public class Families {
             Tilemap.class,
             Animator.class,
             Shape.class
+    ).get();
+    public static Family updateSystem = Family.one(
+            Player.class
     ).get();
 }

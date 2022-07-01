@@ -13,4 +13,5 @@ public class Mappers {
     public static ComponentMapper<Position> positions = ComponentMapper.getFor(Position.class);
     public static ComponentMapper<Tilemap> tilemaps = ComponentMapper.getFor(Tilemap.class);
     public static ComponentMapper<Collider> colliders = ComponentMapper.getFor(Collider.class);
+    public static ComponentMapper<Player> players = ComponentMapper.getFor(Player.class);
 }

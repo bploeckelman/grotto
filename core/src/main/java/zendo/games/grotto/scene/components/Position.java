@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import zendo.games.grotto.utils.Point;
 
-public record Position(Vector2 position) implements Component {
+public record Position(Vector2 value) implements Component {
     public Position() {
         this(Vector2.Zero.cpy());
     }
@@ -15,15 +15,15 @@ public record Position(Vector2 position) implements Component {
         this(new Vector2(x, y));
     }
     public float x() {
-        return position.x;
+        return value.x;
     }
     public float y() {
-        return position.y;
+        return value.y;
     }
     public void x(float x) {
-        position.x = x;
+        value.x = x;
     }
     public void y(float y) {
-        position.y = y;
+        value.y = y;
     }
 }

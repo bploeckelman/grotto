@@ -24,6 +24,7 @@ import zendo.games.grotto.scene.components.Families;
 import zendo.games.grotto.scene.systems.AnimationSystem;
 import zendo.games.grotto.scene.systems.MovementSystem;
 import zendo.games.grotto.scene.systems.RenderSystem;
+import zendo.games.grotto.scene.systems.UpdateSystem;
 import zendo.games.grotto.screens.BaseScreen;
 import zendo.games.grotto.screens.MapScreen;
 import zendo.games.grotto.screens.TitleScreen;
@@ -67,6 +68,10 @@ public class Game extends ManagedGame<BaseScreen, ScreenTransition> {
 			var renderSystem = new RenderSystem();
 			engine.addEntityListener(Families.renderSystem, renderSystem);
 			engine.addSystem(renderSystem);
+
+			var updateSystem = new UpdateSystem();
+			engine.addEntityListener(Families.updateSystem, updateSystem);
+			engine.addSystem(updateSystem);
 		}
 
 		tween = new TweenManager();

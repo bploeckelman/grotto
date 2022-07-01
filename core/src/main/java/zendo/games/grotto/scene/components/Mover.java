@@ -45,7 +45,7 @@ public class Mover implements Component {
 
     public boolean moveX(int amount) {
         if (collider == null) {
-            position.position().x += amount;
+            position.value().x += amount;
         } else {
             var sign = Calc.sign(amount);
 
@@ -60,7 +60,7 @@ public class Mover implements Component {
                 }
 
                 amount -= sign;
-                position.position().x += sign;
+                position.value().x += sign;
             }
         }
 
@@ -69,7 +69,7 @@ public class Mover implements Component {
 
     public boolean moveY(int amount) {
         if (collider == null) {
-            position.position().y += amount;
+            position.value().y += amount;
         } else {
             var sign = Calc.sign(amount);
 
@@ -84,7 +84,7 @@ public class Mover implements Component {
                 }
 
                 amount -= sign;
-                position.position().y += sign;
+                position.value().y += sign;
             }
         }
 

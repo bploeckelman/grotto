@@ -27,7 +27,6 @@ import zendo.games.grotto.utils.Calc;
 import zendo.games.grotto.utils.Point;
 
 import static com.badlogic.gdx.Input.Buttons;
-import static com.badlogic.gdx.Input.Keys;
 
 public class MapScreen extends BaseScreen {
 
@@ -102,44 +101,6 @@ public class MapScreen extends BaseScreen {
     public void update(float delta) {
         scene.update(delta);
         updateUserInterfaceElements();
-
-        var leftPressed  = Gdx.input.isKeyPressed(Keys.LEFT)  || Gdx.input.isKeyPressed(Keys.A);
-        var rightPressed = Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
-        var spacePressed = Gdx.input.isKeyPressed(Keys.SPACE);
-
-        var mover = Mappers.movers.get(player);
-
-        // horizontal movement
-        {
-            var inputDir = leftPressed ? -1 : rightPressed ? 1 : 0;
-
-            var acceleration_ground = 700f;
-            mover.speed.x += inputDir * acceleration_ground * delta;
-
-            var max_speed = 70;
-            if (Calc.abs(mover.speed.x) > max_speed) {
-                var facing = Calc.sign(mover.speed.x);
-                mover.speed.x = Calc.approach(mover.speed.x, facing * max_speed, 2000 * delta);
-            }
-        }
-
-        // vertical movement
-        {
-            if (spacePressed && !isJumping) {
-                isJumping = true;
-
-                var jump_force = 150;
-                mover.speed.y = jump_force;
-
-                // squash and stretch
-                var anim = Mappers.animators.get(player);
-                anim.scale.set(0.8f, 1.6f);
-            }
-            if (isJumping && mover.isOnGround()) {
-                isJumping = false;
-            }
-        }
-
         super.update(delta);
     }
 
@@ -218,7 +179,7 @@ public class MapScreen extends BaseScreen {
     private void updateUserInterfaceElements() {
         UI.fpsLabel.setText(Gdx.graphics.getFramesPerSecond() + " fps");
 
-        var position = Mappers.positions.get(player).position();
+        var position = Mappers.positions.get(player).value();
         UI.playerPosLabel.setText(String.format("(%.1f, %.1f)", position.x, position.y));
 
         var mover = Mappers.movers.get(player);
