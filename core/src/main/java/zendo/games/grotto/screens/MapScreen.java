@@ -3,6 +3,9 @@ package zendo.games.grotto.screens;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.ControllerAdapter;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -44,6 +48,8 @@ public class MapScreen extends BaseScreen {
 
     static class UI {
         static Stage stage;
+
+        static VisImage controllerImage;
 
         static VisLabel fpsLabel;
         static VisLabel playerPosLabel;
@@ -87,6 +93,20 @@ public class MapScreen extends BaseScreen {
 
         addInputProcessor(UI.stage);
         addInputProcessor(input);
+
+        Controllers.addListener(new ControllerAdapter() {
+            @Override
+            public void connected(Controller controller) {
+                UI.controllerImage.setVisible(true);
+                Gdx.app.log("Controllers", "Connected " + controller.getName());
+            }
+
+            @Override
+            public void disconnected(Controller controller) {
+                UI.controllerImage.setVisible(false);
+                Gdx.app.log("Controllers", "Disconnected " + controller.getName());
+            }
+        });
     }
 
     @Override
@@ -174,6 +194,19 @@ public class MapScreen extends BaseScreen {
         table.setFillParent(true);
 
         UI.stage.addActor(table);
+
+        var margin = 10f;
+        UI.controllerImage = new VisImage(assets.atlas.findRegion("icons/gamepad"));
+        UI.controllerImage.setPosition(
+                0.5f * (windowCamera.viewportWidth - UI.controllerImage.getWidth()),
+                windowCamera.viewportHeight - UI.controllerImage.getHeight() - margin);
+
+        var isConnected = !Controllers.getControllers().isEmpty();
+        if (isConnected) {
+            Gdx.app.log("Controllers", "Connected " + Controllers.getControllers().first().getName());
+        }
+        UI.controllerImage.setVisible(isConnected);
+        UI.stage.addActor(UI.controllerImage);
     }
 
     private void updateUserInterfaceElements() {

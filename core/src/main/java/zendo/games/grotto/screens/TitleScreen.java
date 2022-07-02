@@ -2,6 +2,9 @@ package zendo.games.grotto.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.ControllerAdapter;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -29,12 +32,25 @@ public class TitleScreen extends BaseScreen {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Game.instance.getScreenManager().pushScreen("map", "push");
+                Controllers.clearListeners();
                 return true;
             }
             @Override
             public boolean keyDown(int keycode) {
                 Game.instance.getScreenManager().pushScreen("map", "push");
+                Controllers.clearListeners();
                 return true;
+            }
+        });
+        Controllers.addListener(new ControllerAdapter() {
+            @Override
+            public boolean buttonDown(Controller controller, int buttonCode) {
+                if (drawPlayPrompt) {
+                    Game.instance.getScreenManager().pushScreen("map", "push");
+                    Controllers.clearListeners();
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -57,10 +73,6 @@ public class TitleScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
-//        if (Gdx.input.justTouched()) {
-//            Game.instance.getScreenManager().pushScreen("map", "push");
-//        }
-
         if (drawPlayPrompt) {
             playPromptAlpha = Calc.min(playPromptAlpha + delta, 1f);
         }

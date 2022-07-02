@@ -109,11 +109,20 @@ public class Animator implements Component {
         var frame = anim.frames.get(frameIndex());
         var lineWidth = 1f;
 
+        // TODO - clunky 'fix' to offset animator bounds when facing changes
+        var player = Mappers.players.get(entity);
+        var facingAdjust = 1;
+        if (player != null) {
+            if (player.facing < 0) {
+                facingAdjust = -1;
+            }
+        }
+
         shapes.setColor(Color.YELLOW);
         shapes.rectangle(
                 position.x() - sprite().origin.x,
                 position.y() - sprite().origin.y,
-                frame.image.getRegionWidth() * scale.x,
+                facingAdjust * frame.image.getRegionWidth() * scale.x,
                 frame.image.getRegionHeight() * scale.y,
                 lineWidth,
                 JoinType.SMOOTH

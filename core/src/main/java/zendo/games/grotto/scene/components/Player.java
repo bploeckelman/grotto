@@ -3,7 +3,9 @@ package zendo.games.grotto.scene.components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.math.Vector2;
+import zendo.games.grotto.Config;
 import zendo.games.grotto.utils.Calc;
 import zendo.games.grotto.utils.VectorPool;
 
@@ -14,15 +16,16 @@ public class Player implements Component {
     private final Entity entity;
     private final Vector2 groundedPosition;
 
-    private final float jump_force = 180f;
-    private final float accel_ground = 700f;
-    private final float max_speed_ground = 80f;
+    private final float controller_deadzone = 0.2f;
+    private final float jump_force = 200f;
+    private final float accel_ground = 800f;
+    private final float max_speed_ground = 100f;
     private final float gravity_normal = -400f;
     private final float gravity_peak = -100f;
-    private final float maxfall_speed = -180f;
-    private final float friction_ground = 450f;
+    private final float maxfall_speed = -200f;
+    private final float friction_ground = 400f;
 
-    private int facing = 1;
+    int facing = 1;
 
     private float airTimer = 0;
     private float variableJumpTimer = 0;
@@ -54,6 +57,29 @@ public class Player implements Component {
         var isMoveRightPressed = isRightPressed || isDPressed;
         var isMoveDownPressed  = isDownPressed  || isSPressed;
         var isMoveUpPressed    = isUpPressed    || isWPressed;
+
+        var controllers = Controllers.getControllers();
+        if (!controllers.isEmpty()) {
+            var controller = controllers.first();
+            if (controller != null) {
+                var map = controller.getMapping();
+                isJumpPressed |= controller.getButton(map.buttonA);
+
+                var isAxisLeftPressed = controller.getAxis(map.axisLeftX) < -controller_deadzone;
+                var isButtonLeftPressed = controller.getButton(map.buttonDpadLeft);
+                if (Config.Debug.general && (isAxisLeftPressed || isButtonLeftPressed)) {
+                    Gdx.app.log("Controllers", "Left pressed");
+                }
+                isMoveLeftPressed |= isAxisLeftPressed || isButtonLeftPressed;
+
+                var isAxisRightPressed = controller.getAxis(map.axisLeftX) > controller_deadzone;
+                var isButtonRightPressed = controller.getButton(map.buttonDpadRight);
+                if (Config.Debug.general && (isAxisRightPressed || isButtonRightPressed)) {
+                    Gdx.app.log("Controllers", "Right pressed");
+                }
+                isMoveRightPressed |= isAxisRightPressed || isButtonRightPressed;
+            }
+        }
 
         // get components
         var position = Mappers.positions.get(entity);
