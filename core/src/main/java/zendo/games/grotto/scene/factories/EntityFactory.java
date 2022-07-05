@@ -52,8 +52,6 @@ public class EntityFactory {
 
             var mover = new Mover(position);
             mover.collider = collider;
-//            mover.gravity = -400f;
-            mover.friction = 250f;
 
             var player = new Player(entity);
 

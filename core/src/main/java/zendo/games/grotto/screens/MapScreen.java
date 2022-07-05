@@ -21,6 +21,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import zendo.games.grotto.Config;
 import zendo.games.grotto.Game;
+import zendo.games.grotto.scene.LevelSerde;
 import zendo.games.grotto.scene.Scene;
 import zendo.games.grotto.scene.components.Collider;
 import zendo.games.grotto.scene.components.Mappers;
@@ -174,11 +175,20 @@ public class MapScreen extends BaseScreen {
         UI.playerColliderLabel = new VisLabel("[0, 0 : 0, 0]");
         UI.playerColliderLabel.setColor(textColor);
 
-        var testButton = new VisTextButton("test");
-        testButton.addListener(new ClickListener() {
+        var saveLevelButton = new VisTextButton("Save Level");
+        saveLevelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log(TAG, "clicked");
+                LevelSerde.saveLevel(map, "level_test.json");
+            }
+        });
+        var loadLevelButton = new VisTextButton("Load Level");
+        loadLevelButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                engine.removeEntity(map);
+                map = LevelSerde.loadLevel("level_test.json", engine);
+                engine.addEntity(map);
             }
         });
 
@@ -190,7 +200,8 @@ public class MapScreen extends BaseScreen {
         table.add(UI.playerPosLabel).expandX().row();
         table.add(UI.playerSpeedLabel).expandX().row();
         table.add(UI.playerColliderLabel).expandX().row();
-        table.add(testButton).row();
+        table.add(saveLevelButton).row();
+        table.add(loadLevelButton).row();
         table.setFillParent(true);
 
         UI.stage.addActor(table);
