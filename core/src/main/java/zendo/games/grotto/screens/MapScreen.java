@@ -187,7 +187,7 @@ public class MapScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 engine.removeEntity(map);
-                map = LevelSerde.loadLevel("level_test.json", engine);
+                map = LevelSerde.loadLevel("level_test.json", assets, engine);
                 engine.addEntity(map);
             }
         });

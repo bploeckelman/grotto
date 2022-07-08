@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import zendo.games.grotto.Assets;
+import zendo.games.grotto.Config;
 import zendo.games.grotto.scene.components.*;
 
 import java.nio.charset.StandardCharsets;
@@ -77,7 +79,7 @@ public class LevelSerde {
         Gdx.app.log(TAG, "Saved level data to '" + file.path()  + "'");
     }
 
-    public static Entity loadLevel(String filename, Engine engine) {
+    public static Entity loadLevel(String filename, Assets assets, Engine engine) {
         var path = "levels/" + filename;
         var file = Gdx.files.local(path);
         if (!file.exists() || file.isDirectory()) {
@@ -97,14 +99,23 @@ public class LevelSerde {
             var name = new Name("map");
             var map = new Map();
 
-            var cols = levelData.cols;
-            var rows = levelData.rows;
-            var bounds = new Boundary(levelData.cols, levelData.rows);
+            var width = Config.Screen.framebuffer_width;
+            var height = Config.Screen.framebuffer_height;
+            var bounds = new Boundary(width, height);
 
             var tileSize = 8;
+            var cols = levelData.cols;
+            var rows = levelData.rows;
             var tilemap = new Tilemap(tileSize, cols, rows);
             var collider = Collider.makeGrid(entity, tileSize, cols, rows);
             collider.mask = Collider.Mask.solid;
+
+            for (var tileInfo : levelData.tileInfos) {
+                if (tileInfo.blocking) {
+                    tilemap.setCell(tileInfo.x, tileInfo.y, assets.pixelRegion);
+                    collider.setCell(tileInfo.x, tileInfo.y, true);
+                }
+            }
 
             var recti = bounds.rect();
             var rect = new Rectangle(recti.x, recti.y, recti.w, recti.h);
