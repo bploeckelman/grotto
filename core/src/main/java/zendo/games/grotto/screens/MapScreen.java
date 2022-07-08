@@ -2,6 +2,7 @@ package zendo.games.grotto.screens;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
@@ -28,6 +29,7 @@ import zendo.games.grotto.scene.components.Mappers;
 import zendo.games.grotto.scene.factories.EntityFactory;
 import zendo.games.grotto.scene.systems.AnimationSystem;
 import zendo.games.grotto.scene.systems.RenderSystem;
+import zendo.games.grotto.ui.MapEditUI;
 import zendo.games.grotto.utils.Calc;
 import zendo.games.grotto.utils.Point;
 
@@ -56,6 +58,8 @@ public class MapScreen extends BaseScreen {
         static VisLabel playerPosLabel;
         static VisLabel playerSpeedLabel;
         static VisLabel playerColliderLabel;
+
+        static MapEditUI mapEditUI;
     }
 
     @Override
@@ -120,6 +124,7 @@ public class MapScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
+        UI.stage.act(delta);
         scene.update(delta);
         updateUserInterfaceElements();
         super.update(delta);
@@ -206,6 +211,9 @@ public class MapScreen extends BaseScreen {
 
         UI.stage.addActor(table);
 
+        UI.mapEditUI = new MapEditUI(windowCamera);
+        UI.stage.addActor(UI.mapEditUI);
+
         var margin = 10f;
         UI.controllerImage = new VisImage(assets.atlas.findRegion("icons/gamepad"));
         UI.controllerImage.setPosition(
@@ -231,6 +239,10 @@ public class MapScreen extends BaseScreen {
 
         var collider = Mappers.colliders.get(player).rect();
         UI.playerColliderLabel.setText(String.format("[%d, %d : %d, %d]", collider.x, collider.y, collider.w, collider.h));
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            UI.mapEditUI.toggle();
+        }
     }
 
     private void setHighlightedTileAt(int screenX, int screenY) {
