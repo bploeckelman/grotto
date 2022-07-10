@@ -9,11 +9,9 @@ import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -27,6 +25,7 @@ import zendo.games.grotto.scene.LevelSerde;
 import zendo.games.grotto.scene.Scene;
 import zendo.games.grotto.scene.components.Collider;
 import zendo.games.grotto.scene.components.Mappers;
+import zendo.games.grotto.scene.components.Tilemap;
 import zendo.games.grotto.scene.factories.EntityFactory;
 import zendo.games.grotto.scene.systems.AnimationSystem;
 import zendo.games.grotto.scene.systems.RenderSystem;
@@ -81,9 +80,11 @@ public class MapScreen extends BaseScreen {
 
         // place a floor and walls
         var tilemap = Mappers.tilemaps.get(map);
-        tilemap.setCells(0, 0, tilemap.cols(), 1, assets.pixelRegion);
-        tilemap.setCells(0, 0, 1, tilemap.rows(), assets.pixelRegion);
-        tilemap.setCells(tilemap.cols() - 1, 0, 1, tilemap.rows(), assets.pixelRegion);
+        var cell = new Tilemap.AtlasInfo("pixel", -1);
+        tilemap.setCells(0, 0, tilemap.cols(), 1, cell);
+        tilemap.setCells(0, 0, 1, tilemap.rows(), cell);
+        tilemap.setCells(tilemap.cols() - 1, 0, 1, tilemap.rows(), cell);
+
         var collider = Mappers.colliders.get(map);
         collider.setCells(0, 0, tilemap.cols(), 1, true);
         collider.setCells(0, 0, 1, tilemap.rows(), true);
@@ -273,16 +274,15 @@ public class MapScreen extends BaseScreen {
 
         var x = (int) Calc.floor(pointerPos.x) / tilemap.tileSize();
         var y = (int) Calc.floor(pointerPos.y) / tilemap.tileSize();
-        var region = (TextureRegion) null;
+        var cell = (Tilemap.AtlasInfo) null;
         if (leftMouseDown) {
-            var drawable = (TextureRegionDrawable) UI.mapEditUI.getActiveTileDrawable();
-            region = drawable.getRegion();
+            cell = (Tilemap.AtlasInfo) UI.mapEditUI.activeTileButton.getUserObject();
         }
-        tilemap.setCell(x, y, region);
+        tilemap.setCell(x, y, cell);
 
         var collider = Mappers.colliders.get(map);
         if (collider != null && collider.shape() == Collider.Shape.grid) {
-            var cellFilled = (region != null);
+            var cellFilled = (cell != null);
             collider.setCell(x, y, cellFilled);
         }
         return true;

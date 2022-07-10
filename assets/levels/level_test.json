@@ -3,167 +3,331 @@
 "rows": 22,
 "tileInfos": [
 	{
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 21
+		}
 	},
 	{
 		"x": 1,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 2,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 3,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 4,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 5,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 6,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 7,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 8,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 9,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 10,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 11,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 12,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 13,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 14,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 15,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 16,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 17,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 18,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 19,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 20,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 21,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 22,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 23,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 24,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 25,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 26,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 27,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 28,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 29,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 30,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 31,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 32,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 33,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 34,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 35,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 36,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 37,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 38,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 39,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 23
+		}
 	},
 	{
 		"y": 1,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -227,49 +391,82 @@
 	},
 	{
 		"x": 16,
+		"y": 1
+	},
+	{
+		"x": 17,
+		"y": 1
+	},
+	{
+		"x": 18,
+		"y": 1
+	},
+	{
+		"x": 19,
+		"y": 1
+	},
+	{
+		"x": 20,
 		"y": 1,
-		"blocking": true
-	},
-	{
-		"x": 17,
-		"y": 1
-	},
-	{
-		"x": 18,
-		"y": 1
-	},
-	{
-		"x": 19,
-		"y": 1
-	},
-	{
-		"x": 20,
-		"y": 1
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 21
+		}
 	},
 	{
 		"x": 21,
-		"y": 1
+		"y": 1,
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 22,
-		"y": 1
+		"y": 1,
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 23,
 		"y": 1,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 24,
-		"y": 1
+		"y": 1,
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 25,
-		"y": 1
+		"y": 1,
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 22
+		}
 	},
 	{
 		"x": 26,
-		"y": 1
+		"y": 1,
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 23
+		}
 	},
 	{
 		"x": 27,
@@ -322,11 +519,19 @@
 	{
 		"x": 39,
 		"y": 1,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 2,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -390,8 +595,7 @@
 	},
 	{
 		"x": 16,
-		"y": 2,
-		"blocking": true
+		"y": 2
 	},
 	{
 		"x": 17,
@@ -403,8 +607,7 @@
 	},
 	{
 		"x": 19,
-		"y": 2,
-		"blocking": true
+		"y": 2
 	},
 	{
 		"x": 20,
@@ -420,8 +623,7 @@
 	},
 	{
 		"x": 23,
-		"y": 2,
-		"blocking": true
+		"y": 2
 	},
 	{
 		"x": 24,
@@ -486,11 +688,19 @@
 	{
 		"x": 39,
 		"y": 2,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 3,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -550,13 +760,11 @@
 	},
 	{
 		"x": 15,
-		"y": 3,
-		"blocking": true
+		"y": 3
 	},
 	{
 		"x": 16,
-		"y": 3,
-		"blocking": true
+		"y": 3
 	},
 	{
 		"x": 17,
@@ -572,8 +780,7 @@
 	},
 	{
 		"x": 20,
-		"y": 3,
-		"blocking": true
+		"y": 3
 	},
 	{
 		"x": 21,
@@ -585,13 +792,11 @@
 	},
 	{
 		"x": 23,
-		"y": 3,
-		"blocking": true
+		"y": 3
 	},
 	{
 		"x": 24,
-		"y": 3,
-		"blocking": true
+		"y": 3
 	},
 	{
 		"x": 25,
@@ -652,11 +857,19 @@
 	{
 		"x": 39,
 		"y": 3,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 4,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -712,13 +925,11 @@
 	},
 	{
 		"x": 14,
-		"y": 4,
-		"blocking": true
+		"y": 4
 	},
 	{
 		"x": 15,
-		"y": 4,
-		"blocking": true
+		"y": 4
 	},
 	{
 		"x": 16,
@@ -734,13 +945,11 @@
 	},
 	{
 		"x": 19,
-		"y": 4,
-		"blocking": true
+		"y": 4
 	},
 	{
 		"x": 20,
-		"y": 4,
-		"blocking": true
+		"y": 4
 	},
 	{
 		"x": 21,
@@ -756,13 +965,11 @@
 	},
 	{
 		"x": 24,
-		"y": 4,
-		"blocking": true
+		"y": 4
 	},
 	{
 		"x": 25,
-		"y": 4,
-		"blocking": true
+		"y": 4
 	},
 	{
 		"x": 26,
@@ -819,11 +1026,19 @@
 	{
 		"x": 39,
 		"y": 4,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 5,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -879,8 +1094,7 @@
 	},
 	{
 		"x": 14,
-		"y": 5,
-		"blocking": true
+		"y": 5
 	},
 	{
 		"x": 15,
@@ -924,8 +1138,7 @@
 	},
 	{
 		"x": 25,
-		"y": 5,
-		"blocking": true
+		"y": 5
 	},
 	{
 		"x": 26,
@@ -982,11 +1195,19 @@
 	{
 		"x": 39,
 		"y": 5,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 6,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -1042,8 +1263,7 @@
 	},
 	{
 		"x": 14,
-		"y": 6,
-		"blocking": true
+		"y": 6
 	},
 	{
 		"x": 15,
@@ -1059,8 +1279,7 @@
 	},
 	{
 		"x": 18,
-		"y": 6,
-		"blocking": true
+		"y": 6
 	},
 	{
 		"x": 19,
@@ -1072,8 +1291,7 @@
 	},
 	{
 		"x": 21,
-		"y": 6,
-		"blocking": true
+		"y": 6
 	},
 	{
 		"x": 22,
@@ -1089,8 +1307,7 @@
 	},
 	{
 		"x": 25,
-		"y": 6,
-		"blocking": true
+		"y": 6
 	},
 	{
 		"x": 26,
@@ -1147,11 +1364,19 @@
 	{
 		"x": 39,
 		"y": 6,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 7,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -1207,13 +1432,11 @@
 	},
 	{
 		"x": 14,
-		"y": 7,
-		"blocking": true
+		"y": 7
 	},
 	{
 		"x": 15,
-		"y": 7,
-		"blocking": true
+		"y": 7
 	},
 	{
 		"x": 16,
@@ -1249,13 +1472,11 @@
 	},
 	{
 		"x": 24,
-		"y": 7,
-		"blocking": true
+		"y": 7
 	},
 	{
 		"x": 25,
-		"y": 7,
-		"blocking": true
+		"y": 7
 	},
 	{
 		"x": 26,
@@ -1312,11 +1533,19 @@
 	{
 		"x": 39,
 		"y": 7,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 8,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -1376,53 +1605,43 @@
 	},
 	{
 		"x": 15,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 16,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 17,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 18,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 19,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 20,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 21,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 22,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 23,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 24,
-		"y": 8,
-		"blocking": true
+		"y": 8
 	},
 	{
 		"x": 25,
@@ -1483,11 +1702,19 @@
 	{
 		"x": 39,
 		"y": 8,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 9,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -1644,11 +1871,19 @@
 	{
 		"x": 39,
 		"y": 9,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 10,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -1805,11 +2040,19 @@
 	{
 		"x": 39,
 		"y": 10,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 11,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -1869,18 +2112,15 @@
 	},
 	{
 		"x": 15,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 16,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 17,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 18,
@@ -1888,28 +2128,23 @@
 	},
 	{
 		"x": 19,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 20,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 21,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 22,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 23,
-		"y": 11,
-		"blocking": true
+		"y": 11
 	},
 	{
 		"x": 24,
@@ -1974,11 +2209,19 @@
 	{
 		"x": 39,
 		"y": 11,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 12,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -2038,8 +2281,7 @@
 	},
 	{
 		"x": 15,
-		"y": 12,
-		"blocking": true
+		"y": 12
 	},
 	{
 		"x": 16,
@@ -2047,8 +2289,7 @@
 	},
 	{
 		"x": 17,
-		"y": 12,
-		"blocking": true
+		"y": 12
 	},
 	{
 		"x": 18,
@@ -2056,8 +2297,7 @@
 	},
 	{
 		"x": 19,
-		"y": 12,
-		"blocking": true
+		"y": 12
 	},
 	{
 		"x": 20,
@@ -2073,8 +2313,7 @@
 	},
 	{
 		"x": 23,
-		"y": 12,
-		"blocking": true
+		"y": 12
 	},
 	{
 		"x": 24,
@@ -2139,11 +2378,19 @@
 	{
 		"x": 39,
 		"y": 12,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 13,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -2203,8 +2450,7 @@
 	},
 	{
 		"x": 15,
-		"y": 13,
-		"blocking": true
+		"y": 13
 	},
 	{
 		"x": 16,
@@ -2220,18 +2466,15 @@
 	},
 	{
 		"x": 19,
-		"y": 13,
-		"blocking": true
+		"y": 13
 	},
 	{
 		"x": 20,
-		"y": 13,
-		"blocking": true
+		"y": 13
 	},
 	{
 		"x": 21,
-		"y": 13,
-		"blocking": true
+		"y": 13
 	},
 	{
 		"x": 22,
@@ -2239,8 +2482,7 @@
 	},
 	{
 		"x": 23,
-		"y": 13,
-		"blocking": true
+		"y": 13
 	},
 	{
 		"x": 24,
@@ -2305,11 +2547,19 @@
 	{
 		"x": 39,
 		"y": 13,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 14,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -2369,8 +2619,7 @@
 	},
 	{
 		"x": 15,
-		"y": 14,
-		"blocking": true
+		"y": 14
 	},
 	{
 		"x": 16,
@@ -2386,8 +2635,7 @@
 	},
 	{
 		"x": 19,
-		"y": 14,
-		"blocking": true
+		"y": 14
 	},
 	{
 		"x": 20,
@@ -2403,8 +2651,7 @@
 	},
 	{
 		"x": 23,
-		"y": 14,
-		"blocking": true
+		"y": 14
 	},
 	{
 		"x": 24,
@@ -2469,11 +2716,19 @@
 	{
 		"x": 39,
 		"y": 14,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 15,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -2533,8 +2788,7 @@
 	},
 	{
 		"x": 15,
-		"y": 15,
-		"blocking": true
+		"y": 15
 	},
 	{
 		"x": 16,
@@ -2542,18 +2796,15 @@
 	},
 	{
 		"x": 17,
-		"y": 15,
-		"blocking": true
+		"y": 15
 	},
 	{
 		"x": 18,
-		"y": 15,
-		"blocking": true
+		"y": 15
 	},
 	{
 		"x": 19,
-		"y": 15,
-		"blocking": true
+		"y": 15
 	},
 	{
 		"x": 20,
@@ -2561,8 +2812,7 @@
 	},
 	{
 		"x": 21,
-		"y": 15,
-		"blocking": true
+		"y": 15
 	},
 	{
 		"x": 22,
@@ -2570,8 +2820,7 @@
 	},
 	{
 		"x": 23,
-		"y": 15,
-		"blocking": true
+		"y": 15
 	},
 	{
 		"x": 24,
@@ -2636,11 +2885,19 @@
 	{
 		"x": 39,
 		"y": 15,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 16,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -2700,8 +2957,7 @@
 	},
 	{
 		"x": 15,
-		"y": 16,
-		"blocking": true
+		"y": 16
 	},
 	{
 		"x": 16,
@@ -2713,8 +2969,7 @@
 	},
 	{
 		"x": 18,
-		"y": 16,
-		"blocking": true
+		"y": 16
 	},
 	{
 		"x": 19,
@@ -2734,8 +2989,7 @@
 	},
 	{
 		"x": 23,
-		"y": 16,
-		"blocking": true
+		"y": 16
 	},
 	{
 		"x": 24,
@@ -2800,11 +3054,19 @@
 	{
 		"x": 39,
 		"y": 16,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 17,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -2864,23 +3126,19 @@
 	},
 	{
 		"x": 15,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 16,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 17,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 18,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 19,
@@ -2892,18 +3150,15 @@
 	},
 	{
 		"x": 21,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 22,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 23,
-		"y": 17,
-		"blocking": true
+		"y": 17
 	},
 	{
 		"x": 24,
@@ -2968,11 +3223,19 @@
 	{
 		"x": 39,
 		"y": 17,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 18,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -3129,11 +3392,19 @@
 	{
 		"x": 39,
 		"y": 18,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 19,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -3290,11 +3561,19 @@
 	{
 		"x": 39,
 		"y": 19,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 20,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 120
+		}
 	},
 	{
 		"x": 1,
@@ -3451,11 +3730,19 @@
 	{
 		"x": 39,
 		"y": 20,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 56
+		}
 	},
 	{
 		"y": 21,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 20
+		}
 	},
 	{
 		"x": 1,
@@ -3612,7 +3899,11 @@
 	{
 		"x": 39,
 		"y": 21,
-		"blocking": true
+		"blocking": true,
+		"cell": {
+			"name": "tilesets/kenney-pixel-platformer/tile",
+			"index": 36
+		}
 	}
 ]
 }

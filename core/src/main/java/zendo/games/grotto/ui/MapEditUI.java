@@ -20,6 +20,7 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import zendo.games.grotto.Game;
+import zendo.games.grotto.scene.components.Tilemap;
 import zendo.games.grotto.utils.Calc;
 
 import static com.kotcrab.vis.ui.widget.VisImageButton.VisImageButtonStyle;
@@ -27,7 +28,8 @@ import static com.kotcrab.vis.ui.widget.VisImageButton.VisImageButtonStyle;
 public class MapEditUI extends VisWindow {
 
     private boolean isShown;
-    private VisImageButton activeTileButton;
+
+    public VisImageButton activeTileButton;
 
     private final VisScrollPane tileScrollPane;
 
@@ -87,7 +89,7 @@ public class MapEditUI extends VisWindow {
             for (var iconRegion : assets.atlas.getRegions()) {
                 var style = getCustomImageButtonStyle(iconRegion, iconSize);
                 var button = new VisImageButton(style);
-//                button.setUserObject(...); // TODO - use this for serde?
+                button.setUserObject(new Tilemap.AtlasInfo(iconRegion.name, iconRegion.index));
 
                 final var thisButton = button;
                 button.addListener(new ClickListener() {

@@ -21,20 +21,20 @@ public class LevelSerde {
 
     private static final String TAG = LevelSerde.class.getSimpleName();
 
-    // TODO - decide how to store the texture region info... texture name plus u,v,w,h from region?
     @NoArgsConstructor
     @AllArgsConstructor
     static class TileInfo {
-        int x;
-        int y;
-        boolean blocking;
+        public int x;
+        public int y;
+        public boolean blocking;
+        public Tilemap.AtlasInfo cell;
     }
     @NoArgsConstructor
     @AllArgsConstructor
     static class LevelInfo {
-        int cols;
-        int rows;
-        Array<TileInfo> tileInfos;
+        public int cols;
+        public int rows;
+        public Array<TileInfo> tileInfos;
     }
 
     public static void saveLevel(Entity entity, String filename) {
@@ -61,9 +61,9 @@ public class LevelSerde {
         var tileInfos = new Array<TileInfo>(cols * rows);
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                var cell = collider.getCell(x, y);
-                var tile = tilemap.getCell(x, y);
-                tileInfos.add(new TileInfo(x, y, cell));
+                var blocking = collider.getCell(x, y);
+                var tilemapCell = tilemap.getCell(x, y);
+                tileInfos.add(new TileInfo(x, y, blocking, tilemapCell));
             }
         }
         var levelInfo = new LevelInfo(cols, rows, tileInfos);
@@ -111,8 +111,16 @@ public class LevelSerde {
             collider.mask = Collider.Mask.solid;
 
             for (var tileInfo : levelData.tileInfos) {
+                if (tileInfo == null) continue;
+
+                if (tileInfo.cell != null) {
+                    var region = assets.atlas.findRegion(tileInfo.cell.name, tileInfo.cell.index);
+                    if (region != null) {
+                        tilemap.setCell(tileInfo.x, tileInfo.y, tileInfo.cell);
+                    }
+                }
+
                 if (tileInfo.blocking) {
-                    tilemap.setCell(tileInfo.x, tileInfo.y, assets.pixelRegion);
                     collider.setCell(tileInfo.x, tileInfo.y, true);
                 }
             }
