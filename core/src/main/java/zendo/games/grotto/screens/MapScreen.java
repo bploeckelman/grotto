@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -274,7 +275,8 @@ public class MapScreen extends BaseScreen {
         var y = (int) Calc.floor(pointerPos.y) / tilemap.tileSize();
         var region = (TextureRegion) null;
         if (leftMouseDown) {
-            region = assets.pixelRegion;
+            var drawable = (TextureRegionDrawable) UI.mapEditUI.getActiveTileDrawable();
+            region = drawable.getRegion();
         }
         tilemap.setCell(x, y, region);
 
