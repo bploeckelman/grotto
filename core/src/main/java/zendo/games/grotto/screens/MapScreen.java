@@ -143,10 +143,15 @@ public class MapScreen extends BaseScreen {
             batch.setProjectionMatrix(worldCamera.combined);
             batch.begin();
             {
+                var tileDrawable = UI.mapEditUI.getActiveTileDrawable();
                 var tileSize = Mappers.tilemaps.get(map).tileSize();
-                batch.setColor(0.1f, 1f, 0.1f, 0.5f);
-                batch.draw(assets.pixelRegion, highlightedTile.x * tileSize, highlightedTile.y * tileSize, tileSize, tileSize);
+                var x = highlightedTile.x * tileSize;
+                var y = highlightedTile.y * tileSize;
+                batch.setColor(0.9f, 0.9f, 0.2f, 1f);
+                batch.draw(assets.pixelRegion, x, y, tileSize, tileSize);
+
                 batch.setColor(Color.WHITE);
+                tileDrawable.draw(batch, x, y, tileSize, tileSize);
             }
             batch.end();
         }

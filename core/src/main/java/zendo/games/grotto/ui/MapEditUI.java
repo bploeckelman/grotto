@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.VisUI;
@@ -21,7 +22,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import zendo.games.grotto.Game;
 import zendo.games.grotto.utils.Calc;
 
-import static com.kotcrab.vis.ui.widget.VisImageButton.*;
+import static com.kotcrab.vis.ui.widget.VisImageButton.VisImageButtonStyle;
 
 public class MapEditUI extends VisWindow {
 
@@ -128,6 +129,14 @@ public class MapEditUI extends VisWindow {
             }
         });
         this.add(tileScrollPane).padTop(10f).padBottom(10f);
+    }
+
+    private static Drawable defaultTileDrawable;
+    public Drawable getActiveTileDrawable() {
+        if (defaultTileDrawable == null) {
+            defaultTileDrawable = new TextureRegionDrawable(Game.instance.assets.pixelRegion);
+        }
+        return (activeTileButton == null) ? defaultTileDrawable : activeTileButton.getImage().getDrawable();
     }
 
     public void toggle() {
