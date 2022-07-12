@@ -80,6 +80,19 @@ public class RenderSystem extends EntitySystem implements EntityListener {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         {
+            int extents = 1000;
+            int stepSize = 8;
+            boolean flip = false;
+            for (int y = -extents; y < extents; y += stepSize) {
+                for (int x = -extents; x < extents; x += stepSize) {
+                    shapeDrawer.filledRectangle(
+                            x, y, stepSize, stepSize,
+                            flip ? Color.DARK_GRAY : Color.GRAY);
+                    flip = !flip;
+                }
+                flip = !flip;
+            }
+
             for (var tilemap : tilemaps) {
                 tilemap.render(batch, Point.Zero);
             }
