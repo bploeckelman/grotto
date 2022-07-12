@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.JsonWriter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import zendo.games.grotto.Assets;
-import zendo.games.grotto.Config;
 import zendo.games.grotto.scene.components.*;
 
 import java.nio.charset.StandardCharsets;
@@ -21,6 +20,7 @@ public class LevelSerde {
 
     private static final String TAG = LevelSerde.class.getSimpleName();
 
+    // TODO - maybe move these structures into the Map component?
     @NoArgsConstructor
     @AllArgsConstructor
     static class TileInfo {
@@ -34,6 +34,7 @@ public class LevelSerde {
     static class LevelInfo {
         public int cols;
         public int rows;
+        public int tileSize;
         public Array<TileInfo> tileInfos;
     }
 
@@ -56,6 +57,7 @@ public class LevelSerde {
         }
 
         // serialize level data
+        var tileSize = 8; // TODO - extract from tilemap
         var cols = collider.grid().cols;
         var rows = collider.grid().rows;
         var tileInfos = new Array<TileInfo>(cols * rows);
@@ -66,7 +68,7 @@ public class LevelSerde {
                 tileInfos.add(new TileInfo(x, y, blocking, tilemapCell));
             }
         }
-        var levelInfo = new LevelInfo(cols, rows, tileInfos);
+        var levelInfo = new LevelInfo(cols, rows, tileSize, tileInfos);
 
         // convert to json
         var json = new Json(JsonWriter.OutputType.json);
@@ -99,13 +101,12 @@ public class LevelSerde {
             var name = new Name("map");
             var map = new Map();
 
-            var width = Config.Screen.framebuffer_width;
-            var height = Config.Screen.framebuffer_height;
-            var bounds = new Boundary(width, height);
-
-            var tileSize = 8;
+            var tileSize = levelData.tileSize;
             var cols = levelData.cols;
             var rows = levelData.rows;
+            var width = cols * tileSize;
+            var height = rows * tileSize;
+            var bounds = new Boundary(width, height);
             var tilemap = new Tilemap(tileSize, cols, rows);
             var collider = Collider.makeGrid(entity, tileSize, cols, rows);
             collider.mask = Collider.Mask.solid;

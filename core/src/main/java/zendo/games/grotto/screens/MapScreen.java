@@ -72,8 +72,11 @@ public class MapScreen extends BaseScreen {
         this.renderSystem = engine.getSystem(RenderSystem.class);
         this.animationSystem = engine.getSystem(AnimationSystem.class);
 
-        var width = Config.Screen.framebuffer_width;
-        var height = Config.Screen.framebuffer_height;
+        var tileSize = 8;
+        var colsWide = 40;
+        var rowsHigh = 22;
+        var width = colsWide * tileSize;
+        var height = rowsHigh * tileSize;
         this.map = EntityFactory.createMap(engine, width, height);
 
         // place a floor and walls

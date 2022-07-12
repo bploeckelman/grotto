@@ -1,6 +1,7 @@
 {
 "cols": 40,
 "rows": 22,
+"tileSize": 8,
 "tileInfos": [
 	{
 		"blocking": true,
