@@ -57,7 +57,7 @@ public class LevelSerde {
         }
 
         // serialize level data
-        var tileSize = 8; // TODO - extract from tilemap
+        var tileSize = tilemap.tileSize();
         var cols = collider.grid().cols;
         var rows = collider.grid().rows;
         var tileInfos = new Array<TileInfo>(cols * rows);

@@ -14,7 +14,7 @@ public record Shape(Shape2D shape) implements Component {
         //  [switch (shape) { case Rectangle r -> drawer.rectangle(r, color) ...]
 
         if (shape instanceof Rectangle r) {
-            drawer.rectangle(r, color, 2);
+            drawer.rectangle(r, color, 1);
         }
         // TODO - add other handlers
         else {

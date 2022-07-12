@@ -20,6 +20,9 @@ public class RenderSystem extends EntitySystem implements EntityListener {
     private final ObjectSet<Tilemap> tilemaps = new ObjectSet<>();
     private final ObjectSet<Animator> animators = new ObjectSet<>();
 
+    private final Color gridColor1 = new Color(30f / 255f, 30f / 255f, 30f / 255f, 1f);
+    private final Color gridColor2 = new Color(34f / 255f, 34f / 255f, 34f / 255f, 1f);
+
     @Override
     public void entityAdded(Entity entity) {
         var shape = Mappers.shapes.get(entity);
@@ -87,7 +90,7 @@ public class RenderSystem extends EntitySystem implements EntityListener {
                 for (int x = -extents; x < extents; x += stepSize) {
                     shapeDrawer.filledRectangle(
                             x, y, stepSize, stepSize,
-                            flip ? Color.DARK_GRAY : Color.GRAY);
+                            flip ? gridColor1 : gridColor2);
                     flip = !flip;
                 }
                 flip = !flip;
@@ -98,7 +101,7 @@ public class RenderSystem extends EntitySystem implements EntityListener {
             }
 
             for (var shape : shapes) {
-                shape.render(shapeDrawer, Color.WHITE);
+                shape.render(shapeDrawer, Color.SKY);
             }
 
             for (var renderable : textures) {

@@ -84,11 +84,13 @@ public class MapScreen extends BaseScreen {
         var cell = new Tilemap.AtlasInfo("pixel", -1);
         tilemap.setCells(0, 0, tilemap.cols(), 1, cell);
         tilemap.setCells(0, 0, 1, tilemap.rows(), cell);
+        tilemap.setCells(0, tilemap.rows() - 1, tilemap.cols(), 1, cell);
         tilemap.setCells(tilemap.cols() - 1, 0, 1, tilemap.rows(), cell);
 
         var collider = Mappers.colliders.get(map);
         collider.setCells(0, 0, tilemap.cols(), 1, true);
         collider.setCells(0, 0, 1, tilemap.rows(), true);
+        collider.setCells(0, tilemap.rows() - 1, tilemap.cols(), 1, true);
         collider.setCells(tilemap.cols() - 1, 0, 1, tilemap.rows(), true);
 
         this.player = EntityFactory.createPlayer(engine, Point.at(10, 20));
