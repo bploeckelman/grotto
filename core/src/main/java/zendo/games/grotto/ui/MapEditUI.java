@@ -15,12 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisWindow;
+import com.kotcrab.vis.ui.widget.*;
 import zendo.games.grotto.Game;
 import zendo.games.grotto.scene.components.Tilemap;
+import zendo.games.grotto.screens.MapScreen;
 import zendo.games.grotto.utils.Calc;
 
 import static com.kotcrab.vis.ui.widget.VisImageButton.VisImageButtonStyle;
@@ -28,9 +26,11 @@ import static com.kotcrab.vis.ui.widget.VisImageButton.VisImageButtonStyle;
 public class MapEditUI extends VisWindow {
 
     private boolean isShown;
+    private MapScreen screen;
 
     public VisImageButton activeTileButton;
 
+    private final VisTextButton resetViewButton;
     private final VisScrollPane tileScrollPane;
 
     private final Rectangle visibleBounds = new Rectangle();
@@ -38,8 +38,9 @@ public class MapEditUI extends VisWindow {
     private final MoveToAction showAction = new MoveToAction();
     private final MoveToAction hideAction = new MoveToAction();
 
-    public MapEditUI(OrthographicCamera camera) {
+    public MapEditUI(MapScreen screen, OrthographicCamera camera) {
         super("Map Editor");
+        this.screen = screen;
 
         var percentWidth = 0.2f;
         var percentHeight = 1f;
@@ -73,9 +74,18 @@ public class MapEditUI extends VisWindow {
 
         var iconSize = 50f;
 
+        resetViewButton = new VisTextButton("Reset View");
+        resetViewButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                screen.resetWorldCamera();
+            }
+        });
+        this.add(resetViewButton).pad(10f).growX().row();
+
         var assets = Game.instance.assets;
         var tileScrollTable = new VisTable();
-        tileScrollTable.padTop(iconSize).padBottom(10f);
+        tileScrollTable.padTop(10f).padBottom(10f);
         {
             // radio button style, only 1 checked at a time
             // TODO - being able to multi-select would probably be useful
@@ -119,7 +129,6 @@ public class MapEditUI extends VisWindow {
             }
         }
         tileScrollPane = new VisScrollPane(tileScrollTable);
-        tileScrollPane.setFillParent(true);
         tileScrollPane.addListener(new InputListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -130,7 +139,7 @@ public class MapEditUI extends VisWindow {
                 getStage().setScrollFocus(null);
             }
         });
-        this.add(tileScrollPane).padTop(10f).padBottom(10f);
+        this.add(tileScrollPane).padTop(10f).padBottom(10f).grow();
     }
 
     private static Drawable defaultTileDrawable;

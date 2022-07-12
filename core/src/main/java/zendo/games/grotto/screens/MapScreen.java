@@ -66,9 +66,7 @@ public class MapScreen extends BaseScreen {
     protected void create() {
         super.create();
 
-        this.worldCamera = new OrthographicCamera();
-        this.worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
-        this.worldCamera.update();
+        resetWorldCamera();
 
         this.scene = new Scene(engine);
         this.renderSystem = engine.getSystem(RenderSystem.class);
@@ -173,6 +171,12 @@ public class MapScreen extends BaseScreen {
         UI.stage.draw();
     }
 
+    public void resetWorldCamera() {
+        worldCamera = new OrthographicCamera();
+        worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
+        worldCamera.update();
+    }
+
     private void createUserInterfaceElements() {
         var textColor = Color.FOREST.cpy();
         UI.fpsLabel = new VisLabel("0 fps");
@@ -218,7 +222,7 @@ public class MapScreen extends BaseScreen {
 
         UI.stage.addActor(table);
 
-        UI.mapEditUI = new MapEditUI(windowCamera);
+        UI.mapEditUI = new MapEditUI(this, windowCamera);
         UI.stage.addActor(UI.mapEditUI);
 
         var margin = 10f;
