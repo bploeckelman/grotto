@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import zendo.games.grotto.Assets;
 import zendo.games.grotto.Config;
 import zendo.games.grotto.Game;
 import zendo.games.grotto.utils.Point;
@@ -18,6 +19,8 @@ public class Tilemap implements Component {
     private int tileSize;
     private int rows;
     private int cols;
+
+    private final Assets assets;
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -38,6 +41,7 @@ public class Tilemap implements Component {
         this.offset = Point.zero();
         this.atlasInfos = new AtlasInfo[rows * cols];
         this.regions = new TextureRegion[rows * cols];
+        this.assets = Game.instance.assets;
     }
 
     public int tileSize() {
@@ -60,7 +64,7 @@ public class Tilemap implements Component {
             return;
         }
         atlasInfos[x + y * cols] = cell;
-        regions[x + y * cols] = Game.instance.assets.atlas.findRegion(cell.name, cell.index);
+        regions[x + y * cols] = (cell == null) ? null : assets.atlas.findRegion(cell.name, cell.index);
     }
 
     public void setCells(int x, int y, int w, int h, AtlasInfo cell) {
@@ -73,7 +77,7 @@ public class Tilemap implements Component {
         for (int ix = x; ix < x + w; ix++) {
             for (int iy = y; iy < y + h; iy++) {
                 atlasInfos[ix + iy * cols] = cell;
-                regions[ix + iy * cols] = Game.instance.assets.atlas.findRegion(cell.name, cell.index);
+                regions[ix + iy * cols] = (cell == null) ? null : assets.atlas.findRegion(cell.name, cell.index);
             }
         }
     }
